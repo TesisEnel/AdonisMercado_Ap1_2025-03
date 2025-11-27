@@ -207,14 +207,18 @@
 
         if (!string.IsNullOrWhiteSpace(ValorFiltro))
         {
-            if (Filtro == "PedidoId" && int.TryParse(ValorFiltro, out int id))
+            if (Filtro == "PedidoId" && int.TryParse(ValorFiltro, out var id))
+            {
                 ListaPedidos = await pedidoServices.ListarPedidos(e => e.PedidoId == id);
-
+            }
             else if (Filtro == "NombrePedido")
-                ListaPedidos = await pedidoServices.ListarPedidos(e => e.NombrePedido.ToLower().Contains(ValorFiltro.ToLower()));
-
+            {
+                ListaPedidos = await pedidoServices.ListarPedidos(e => e.NombrePedido.ToLower().Contains(ValorFiltro));
+            }
             else if (Filtro == "Distribuidor")
-                ListaPedidos = await pedidoServices.ListarPedidos(e => e.Distribuidor.Nombre.ToLower().Contains(ValorFiltro.ToLower()));
+            {
+                ListaPedidos = await pedidoServices.ListarPedidos(e => e.Distribuidor.Nombre.ToLower().Contains(ValorFiltro));
+            }
         }
         else
         {

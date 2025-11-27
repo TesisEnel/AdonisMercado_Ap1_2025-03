@@ -57,6 +57,7 @@ public class PedidoServices(IDbContextFactory<Contexto> DbFactory)
             .Include(p => p.PedidoDetalles)
             .Include(p => p.Documentos)
             .Include(p => p.Distribuidor)
+            .Where(criterio)
             .ToListAsync();
     }
 
