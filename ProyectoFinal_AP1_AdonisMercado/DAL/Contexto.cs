@@ -28,7 +28,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2020,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 20000.00m
+                Precio = 20000.00m,
+                Transmision = "Automática",
+                Traccion = "FWD",
+                Motor = "1.8L",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -40,7 +45,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2019,
                 EstadoVehiculo = "Usado",
                 TipoCombustible = "Gasolina",
-                Precio = 18000.00m
+                Precio = 18000.00m,
+                Transmision = "Automática",
+                Traccion = "FWD",
+                Motor = "2.0L",
+                Kilometraje = 45000,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -52,7 +62,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2018,
                 EstadoVehiculo = "Usado",
                 TipoCombustible = "Diésel",
-                Precio = 15000.00m
+                Precio = 15000.00m,
+                Transmision = "Manual",
+                Traccion = "FWD",
+                Motor = "2.0L TDCi",
+                Kilometraje = 60000,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -64,7 +79,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2025,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 115000.00m
+                Precio = 115000.00m,
+                Transmision = "Automática",
+                Traccion = "4x4",
+                Motor = "5.3L V8",
+                Kilometraje = 0,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -76,7 +96,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2024,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Diesel",
-                Precio = 52000.00m
+                Precio = 52000.00m,
+                Transmision = "Automática",
+                Traccion = "4x4",
+                Motor = "2.8L Turbo Diesel",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -88,7 +113,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2023,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 22000.00m
+                Precio = 22000.00m,
+                Transmision = "CVT",
+                Traccion = "FWD",
+                Motor = "2.0L",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -100,7 +130,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2025,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 55000.00m
+                Precio = 55000.00m,
+                Transmision = "Automática",
+                Traccion = "AWD",
+                Motor = "1.5L Turbo",
+                Kilometraje = 0,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -112,7 +147,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2024,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 48000.00m
+                Precio = 48000.00m,
+                Transmision = "Automática",
+                Traccion = "AWD",
+                Motor = "2.5L SkyActiv",
+                Kilometraje = 0,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -124,7 +164,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2023,
                 EstadoVehiculo = "Usado",
                 TipoCombustible = "Gasolina",
-                Precio = 35000.00m
+                Precio = 35000.00m,
+                Transmision = "Automática",
+                Traccion = "AWD",
+                Motor = "2.5L Hybrid",
+                Kilometraje = 20000,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -136,7 +181,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2022,
                 EstadoVehiculo = "Usado",
                 TipoCombustible = "Diesel",
-                Precio = 60000.00m
+                Precio = 60000.00m,
+                Transmision = "Automática",
+                Traccion = "4x4",
+                Motor = "3.0L Duramax",
+                Kilometraje = 35000,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -148,7 +198,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2026,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 80000m
+                Precio = 80000m,
+                Transmision = "Automática",
+                Traccion = "AWD",
+                Motor = "2.5L",
+                Kilometraje = 0,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -160,7 +215,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2026,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 59000m
+                Precio = 59000m,
+                Transmision = "Automática",
+                Traccion = "FWD",
+                Motor = "1.6L Turbo",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -172,7 +232,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2024,
                 EstadoVehiculo = "Usado",
                 TipoCombustible = "Gasolina",
-                Precio = 6000m
+                Precio = 6000m,
+                Transmision = "Automática",
+                Traccion = "AWD",
+                Motor = "3.5L V6",
+                Kilometraje = 70000,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -184,7 +249,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2026,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 120000m
+                Precio = 120000m,
+                Transmision = "Automática",
+                Traccion = "4x4",
+                Motor = "3.5L V6",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -196,7 +266,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2026,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 110000m
+                Precio = 110000m,
+                Transmision = "Automática",
+                Traccion = "AWD",
+                Motor = "3.5L V6",
+                Kilometraje = 0,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -208,7 +283,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2025,
                 EstadoVehiculo = "Usado",
                 TipoCombustible = "Gasolina",
-                Precio = 38000m
+                Precio = 38000m,
+                Transmision = "Automática",
+                Traccion = "FWD",
+                Motor = "1.5L Turbo",
+                Kilometraje = 15000,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -220,7 +300,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2025,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 40000m
+                Precio = 40000m,
+                Transmision = "Automática",
+                Traccion = "FWD",
+                Motor = "2.5L",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -232,7 +317,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2026,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 35000m
+                Precio = 35000m,
+                Transmision = "Automática",
+                Traccion = "FWD",
+                Motor = "1.5L",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -240,11 +330,16 @@ public class Contexto : DbContext
                 MarcaVehiculo = "Mercedes-Benz",
                 ModeloVehiculo = "GLE 63 S Coupe",
                 ColorVehiculo = "Blanco",
-                NumeroChasis = "4JGED7FB7MA123456", 
+                NumeroChasis = "4JGED7FB7MA123456",
                 AnioFabricacion = 2025,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Gasolina",
-                Precio = 165000.00m
+                Precio = 165000.00m,
+                Transmision = "Automática AMG",
+                Traccion = "AWD 4MATIC",
+                Motor = "4.0L V8 Biturbo",
+                Kilometraje = 0,
+                NumeroPuertas = 5
             },
             new Vehiculo
             {
@@ -256,7 +351,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2025,
                 EstadoVehiculo = "Nuevo",
                 TipoCombustible = "Diesel",
-                Precio = 55000m
+                Precio = 55000m,
+                Transmision = "Automática",
+                Traccion = "4x4",
+                Motor = "2.5L Turbo Diesel",
+                Kilometraje = 0,
+                NumeroPuertas = 4
             },
             new Vehiculo
             {
@@ -268,7 +368,12 @@ public class Contexto : DbContext
                 AnioFabricacion = 2025,
                 EstadoVehiculo = "Usado",
                 TipoCombustible = "Gasolina",
-                Precio = 90000m
+                Precio = 90000m,
+                Transmision = "Automática",
+                Traccion = "4x4",
+                Motor = "4.0L V6",
+                Kilometraje = 10000,
+                NumeroPuertas = 5
             }
         );
     }
