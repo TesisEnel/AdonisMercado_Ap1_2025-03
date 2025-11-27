@@ -1,0 +1,11 @@
+﻿@page "/rol"
+
+<AuthorizeView>
+    <Authorized>
+        <p>Roles: @context.User.Claims.FirstOrDefault(c => c.Type == "role")?.Value</p>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+
+}
