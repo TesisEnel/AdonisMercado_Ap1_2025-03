@@ -12,24 +12,57 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
-<PageTitle>Resend email confirmation</PageTitle>
+<PageTitle>Reenviar Confirmación</PageTitle>
 
-<h1>Resend email confirmation</h1>
-<h2>Enter your email.</h2>
-<hr />
-<StatusMessage Message="@message" />
-<div class="row">
-    <div class="col-md-4">
-        <EditForm Model="Input" FormName="resend-email-confirmation" OnValidSubmit="OnValidSubmitAsync" method="post">
-            <DataAnnotationsValidator />
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" id="Input.Email" class="form-control" aria-required="true" placeholder="name@example.com" />
-                <label for="Input.Email" class="form-label">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
+<div class="container d-flex justify-content-center align-items-start mt-5">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-header text-center bg-white">
+                    <h3 class="card-title mb-0 fw-bold">
+                        <i class="fa-solid fa-envelope-circle-check text-danger me-2"></i>
+                        Reenviar Confirmación
+                    </h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <StatusMessage Message="@message" />
+
+                    <EditForm Model="Input"
+                              FormName="resend-email-confirmation"
+                              OnValidSubmit="OnValidSubmitAsync"
+                              method="post">
+
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger mb-3" />
+
+                        <div class="mb-3">
+                            <label for="Input.Email" class="form-label fw-bold">Correo electrónico</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </span>
+                                <InputText @bind-Value="Input.Email"
+                                           id="Input.Email"
+                                           class="form-control"
+                                           placeholder="ejemplo@gmail.com" />
+                            </div>
+                            <ValidationMessage For="() => Input.Email" class="text-danger" />
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100 mt-3">
+                            <i class="fa-solid fa-paper-plane me-2"></i>
+                            Reenviar enlace
+                        </button>
+
+                    </EditForm>
+
+                </div>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Resend</button>
-        </EditForm>
+
+        </div>
     </div>
 </div>
 
@@ -49,19 +82,21 @@
         var user = await UserManager.FindByEmailAsync(Input.Email!);
         if (user is null)
         {
-            message = "Verification email sent. Please check your email.";
+            message = "Si el correo existe, se envió el enlace de verificación.";
             return;
         }
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
         var callbackUrl = NavigationManager.GetUriWithQueryParameters(
             NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
             new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code });
+
         await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
-        message = "Verification email sent. Please check your email.";
+        message = "Se envió un enlace de confirmación. Revisa tu correo.";
     }
 
     private sealed class InputModel
@@ -71,3 +106,4 @@
         public string Email { get; set; } = "";
     }
 }
+
