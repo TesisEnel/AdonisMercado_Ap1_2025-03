@@ -1,0 +1,119 @@
+﻿@page "/distribuidor/edit/{DistribuidorId:int}"
+@layout EmptyLayout
+
+@attribute [Authorize(Roles = "User")]
+@inject DistribuidorServices distribuidorServices
+@inject NavigationManager nav
+@rendermode InteractiveServer
+
+<PageTitle>Editar Distribuidor</PageTitle>
+
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Editar Distribuidor</h2>
+
+        <a href="/distribuidores" class="btn btn-light d-flex align-items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow border-0">
+
+        <div class="card-body p-4">
+
+            <EditForm Model="Distribuidor" OnValidSubmit="Guardar" FormName="EditDistributor">
+
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" />
+
+                <div class="d-flex flex-column align-items-center">
+
+                    <!-- DistribuidorID -->
+                    <div class="mb-3" style="width: 350px;">
+                        <label class="form-label fw-bold">DistribuidorID</label>
+                        <input type="number" class="form-control" @bind="Distribuidor.DistribuidorId" readonly />
+                        <ValidationMessage For="() => Distribuidor.DistribuidorId" />
+                    </div>
+
+                    <!-- Nombre -->
+                    <div class="mb-3" style="width: 350px;">
+                        <label class="form-label fw-bold">Nombre</label>
+                        <input type="text" class="form-control" @bind="Distribuidor.Nombre" placeholder="Nombre" />
+                        <ValidationMessage For="() => Distribuidor.Nombre" />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3" style="width: 350px;">
+                        <label class="form-label fw-bold">Correo electrónico</label>
+                        <input type="email" class="form-control" @bind="Distribuidor.Email" placeholder="Correo electrónico" />
+                        <ValidationMessage For="() => Distribuidor.Email" />
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="mb-3" style="width: 350px;">
+                        <label class="form-label fw-bold">Teléfono</label>
+                        <input type="text" class="form-control" @bind="Distribuidor.Telefono" placeholder="Teléfono" />
+                        <ValidationMessage For="() => Distribuidor.Telefono" />
+                    </div>
+
+                    <!-- Fax -->
+                    <div class="mb-3" style="width: 350px;">
+                        <label class="form-label fw-bold">Fax</label>
+                        <input type="text" class="form-control" @bind="Distribuidor.Fax" placeholder="Fax" />
+                        <ValidationMessage For="() => Distribuidor.Fax" />
+                    </div>
+
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(errorMensaje))
+                {
+                    <div class="alert alert-danger mt-3 text-center">@errorMensaje</div>
+                }
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary px-4 d-flex align-items-center gap-2 mx-auto">
+                        <i class="fa-solid fa-floppy-disk"></i> Guardar
+                    </button>
+                </div>
+
+            </EditForm>
+
+        </div>
+
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public int DistribuidorId { get; set; }
+
+    public Distribuidor Distribuidor { get; set; } = new();
+    public string? errorMensaje { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (DistribuidorId > 0)
+        {
+            var entity = await distribuidorServices.Buscar(DistribuidorId);
+
+            if (entity != null)
+                Distribuidor = entity;
+            else
+                errorMensaje = "No se encontró el distribuidor.";
+        }
+    }
+
+    private async Task Guardar()
+    {
+        var ok = await distribuidorServices.Guardar(Distribuidor);
+
+        if (ok)
+            nav.NavigateTo("/distribuidores");
+        else
+            errorMensaje = "No se pudo guardar el distribuidor.";
+    }
+}
