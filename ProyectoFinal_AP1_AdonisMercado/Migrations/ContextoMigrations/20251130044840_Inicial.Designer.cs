@@ -12,8 +12,8 @@ using ProyectoFinal_AP1_AdonisMercado.DAL;
 namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20251127152616_AddingVehicles")]
-    partial class AddingVehicles
+    [Migration("20251130044840_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,8 +65,20 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                     b.Property<DateTime>("FechaEmision")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("NombreAlmacenado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NombreOriginal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PedidoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("RutaDocumento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TipoDocumento")
                         .IsRequired()
@@ -156,6 +168,9 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Kilometraje")
+                        .HasColumnType("int");
+
                     b.Property<string>("MarcaVehiculo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -164,14 +179,29 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Motor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NumeroChasis")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumeroPuertas")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TipoCombustible")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Traccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Transmision")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -186,11 +216,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2020,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Toyota",
                             ModeloVehiculo = "Corolla",
+                            Motor = "1.8L",
                             NumeroChasis = "JTDBR32E720045671",
+                            NumeroPuertas = 4,
                             Precio = 20000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "FWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -198,11 +233,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2019,
                             ColorVehiculo = "Negro",
                             EstadoVehiculo = "Usado",
+                            Kilometraje = 45000,
                             MarcaVehiculo = "Honda",
                             ModeloVehiculo = "Civic",
+                            Motor = "2.0L",
                             NumeroChasis = "2HGFA16598H345612",
+                            NumeroPuertas = 4,
                             Precio = 18000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "FWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -210,11 +250,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2018,
                             ColorVehiculo = "Azul",
                             EstadoVehiculo = "Usado",
+                            Kilometraje = 60000,
                             MarcaVehiculo = "Ford",
                             ModeloVehiculo = "Focus",
+                            Motor = "2.0L TDCi",
                             NumeroChasis = "1FAHP3F26CL123589",
+                            NumeroPuertas = 4,
                             Precio = 15000.00m,
-                            TipoCombustible = "Diésel"
+                            TipoCombustible = "Diésel",
+                            Traccion = "FWD",
+                            Transmision = "Manual"
                         },
                         new
                         {
@@ -222,11 +267,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2025,
                             ColorVehiculo = "Rojo",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Chevrolet",
                             ModeloVehiculo = "Tahoe",
+                            Motor = "5.3L V8",
                             NumeroChasis = "1GNSKCKC4FR367812",
+                            NumeroPuertas = 5,
                             Precio = 115000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "4x4",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -234,11 +284,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2024,
                             ColorVehiculo = "Gris",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Toyota",
                             ModeloVehiculo = "Hilux",
+                            Motor = "2.8L Turbo Diesel",
                             NumeroChasis = "MR0HA3CD205123678",
+                            NumeroPuertas = 4,
                             Precio = 52000.00m,
-                            TipoCombustible = "Diesel"
+                            TipoCombustible = "Diesel",
+                            Traccion = "4x4",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -246,11 +301,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2023,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Nissan",
                             ModeloVehiculo = "Sentra",
+                            Motor = "2.0L",
                             NumeroChasis = "3N1AB8CV4PY245781",
+                            NumeroPuertas = 4,
                             Precio = 22000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "FWD",
+                            Transmision = "CVT"
                         },
                         new
                         {
@@ -258,11 +318,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2025,
                             ColorVehiculo = "Azul",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Honda",
                             ModeloVehiculo = "CR-V",
+                            Motor = "1.5L Turbo",
                             NumeroChasis = "5J6RM4H77GL046821",
+                            NumeroPuertas = 5,
                             Precio = 55000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "AWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -270,11 +335,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2024,
                             ColorVehiculo = "Rojo",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Mazda",
                             ModeloVehiculo = "CX-5",
+                            Motor = "2.5L SkyActiv",
                             NumeroChasis = "JM3KFBDM4M0557812",
+                            NumeroPuertas = 5,
                             Precio = 48000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "AWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -282,11 +352,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2023,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Usado",
+                            Kilometraje = 20000,
                             MarcaVehiculo = "Toyota",
                             ModeloVehiculo = "RAV4 Hybrid",
+                            Motor = "2.5L Hybrid",
                             NumeroChasis = "JTMGB3FV2MD062345",
+                            NumeroPuertas = 5,
                             Precio = 35000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "AWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -294,11 +369,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2022,
                             ColorVehiculo = "Negro",
                             EstadoVehiculo = "Usado",
+                            Kilometraje = 35000,
                             MarcaVehiculo = "Chevrolet",
                             ModeloVehiculo = "Silverado",
+                            Motor = "3.0L Duramax",
                             NumeroChasis = "1GCUYDED2MZ234567",
+                            NumeroPuertas = 4,
                             Precio = 60000.00m,
-                            TipoCombustible = "Diesel"
+                            TipoCombustible = "Diesel",
+                            Traccion = "4x4",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -306,11 +386,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2026,
                             ColorVehiculo = "Gris",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Toyota",
                             ModeloVehiculo = "RAV4",
+                            Motor = "2.5L",
                             NumeroChasis = "2T3J1RFV7RW345612",
+                            NumeroPuertas = 5,
                             Precio = 80000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "AWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -318,11 +403,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2026,
                             ColorVehiculo = "Gris",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Kia",
                             ModeloVehiculo = "K5",
+                            Motor = "1.6L Turbo",
                             NumeroChasis = "5XXG64J20MG152487",
+                            NumeroPuertas = 4,
                             Precio = 59000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "FWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -330,11 +420,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2024,
                             ColorVehiculo = "Sky Blue",
                             EstadoVehiculo = "Usado",
+                            Kilometraje = 70000,
                             MarcaVehiculo = "Honda",
                             ModeloVehiculo = "Pilot",
+                            Motor = "3.5L V6",
                             NumeroChasis = "5FNYF6H56LB123789",
+                            NumeroPuertas = 5,
                             Precio = 6000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "AWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -342,11 +437,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2026,
                             ColorVehiculo = "Rojo",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Toyota",
                             ModeloVehiculo = "Tacoma TRD Pro",
+                            Motor = "3.5L V6",
                             NumeroChasis = "3TMCZ5AN8PM234981",
+                            NumeroPuertas = 4,
                             Precio = 120000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "4x4",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -354,11 +454,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2026,
                             ColorVehiculo = "Storm Cloud",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Toyota",
                             ModeloVehiculo = "Highlander",
+                            Motor = "3.5L V6",
                             NumeroChasis = "5TDKDRBH4PS145678",
+                            NumeroPuertas = 5,
                             Precio = 110000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "AWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -366,11 +471,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2025,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Usado",
+                            Kilometraje = 15000,
                             MarcaVehiculo = "JETOUR",
                             ModeloVehiculo = "Dashing",
+                            Motor = "1.5L Turbo",
                             NumeroChasis = "L6T743DF5RA012345",
+                            NumeroPuertas = 5,
                             Precio = 38000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "FWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -378,11 +488,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2025,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Hyundai",
                             ModeloVehiculo = "Sonata",
+                            Motor = "2.5L",
                             NumeroChasis = "5NPEJ4J27MH045612",
+                            NumeroPuertas = 4,
                             Precio = 40000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "FWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -390,11 +505,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2026,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Kia",
                             ModeloVehiculo = "Sonet",
+                            Motor = "1.5L",
                             NumeroChasis = "MZK123F47RN654321",
+                            NumeroPuertas = 4,
                             Precio = 35000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "FWD",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -402,11 +522,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2025,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Mercedes-Benz",
                             ModeloVehiculo = "GLE 63 S Coupe",
+                            Motor = "4.0L V8 Biturbo",
                             NumeroChasis = "4JGED7FB7MA123456",
+                            NumeroPuertas = 5,
                             Precio = 165000.00m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "AWD 4MATIC",
+                            Transmision = "Automática AMG"
                         },
                         new
                         {
@@ -414,11 +539,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2025,
                             ColorVehiculo = "Gris",
                             EstadoVehiculo = "Nuevo",
+                            Kilometraje = 0,
                             MarcaVehiculo = "Nissan",
                             ModeloVehiculo = "Frontier Pro-4X",
+                            Motor = "2.5L Turbo Diesel",
                             NumeroChasis = "1N6ED1EK9RN345678",
+                            NumeroPuertas = 4,
                             Precio = 55000m,
-                            TipoCombustible = "Diesel"
+                            TipoCombustible = "Diesel",
+                            Traccion = "4x4",
+                            Transmision = "Automática"
                         },
                         new
                         {
@@ -426,11 +556,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             AnioFabricacion = 2025,
                             ColorVehiculo = "Blanco",
                             EstadoVehiculo = "Usado",
+                            Kilometraje = 10000,
                             MarcaVehiculo = "Toyota",
                             ModeloVehiculo = "Land Cruiser Prado Premium",
+                            Motor = "4.0L V6",
                             NumeroChasis = "JTEBR3FJ3RK128945",
+                            NumeroPuertas = 5,
                             Precio = 90000m,
-                            TipoCombustible = "Gasolina"
+                            TipoCombustible = "Gasolina",
+                            Traccion = "4x4",
+                            Transmision = "Automática"
                         });
                 });
 
