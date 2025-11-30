@@ -147,7 +147,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.DistribuidorId > 0);
+        ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.isActive);
     }
 
     public async Task Buscar()
@@ -156,28 +156,28 @@
         {
             if (Filtro == "DistribuidorId" && int.TryParse(ValorFiltro, out var distribuidorId))
             {
-                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.DistribuidorId == distribuidorId);
+                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.DistribuidorId == distribuidorId && d.isActive);
             }
             else if (Filtro == "Nombre")
             {
-                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Nombre.ToLower().Contains(ValorFiltro));
+                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Nombre.ToLower().Contains(ValorFiltro) && d.isActive);
             }
             else if (Filtro == "Email")
             {
-                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Email.ToLower().Contains(ValorFiltro));
+                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Email.ToLower().Contains(ValorFiltro) && d.isActive);
             }
             else if (Filtro == "Telefono")
             {
-                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Telefono.ToLower().Contains(ValorFiltro));
+                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Telefono.ToLower().Contains(ValorFiltro) && d.isActive);
             }
             else if (Filtro == "Fax")
             {
-                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Fax.ToLower().Contains(ValorFiltro));
+                ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.Fax.ToLower().Contains(ValorFiltro) && d.isActive);
             }
         }
         else
         {
-            ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.DistribuidorId > 0);
+            ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.isActive);
         }
     }
 
@@ -194,7 +194,7 @@
         var ok = await distribuidorServices.Deshabilitar(DistribuidorIdAEliminar);
 
         if (ok)
-            ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.DistribuidorId > 0);
+            ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.isActive);
 
         CerrarModal();
     }
