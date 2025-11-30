@@ -1,0 +1,91 @@
+﻿@page "/usuarios"
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject NavigationManager nav
+
+
+
+@code {
+	public class UsuarioView
+	{
+		public string Id { get; set; } = "";
+		public string Email { get; set; } = "";
+		public string Role { get; set; } = "";
+		public bool IsActive { get; set; }
+	}
+
+	public class UsuarioForm
+	{
+		public string Id { get; set; } = "";
+		public string Email { get; set; } = "";
+		public string Password { get; set; } = "";
+		public string Role { get; set; } = "User";
+	}
+
+	public List<UsuarioView> ListaUsuarios = new();
+	public List<string> Roles = new();
+	public UsuarioForm Form = new();
+	public UsuarioView? usuarioSeleccionado;
+
+	public string Filtro = "";
+	public string ValorFiltro = "";
+
+	public bool mostrarEliminar = false;
+
+	protected override async Task OnInitializedAsync()
+	{
+		Roles = (await RoleManager.Roles.Select(r => r.Name).ToListAsync())!;
+
+	}
+
+	private async Task CargarUsuarios()
+	{
+		ListaUsuarios = (await UserManager.Users.ToListAsync())
+			.Select(u => new UsuarioView
+			{
+				Id = u.Id,
+				Email = u.Email,
+				Role = UserManager.GetRolesAsync(u).Result.First(),
+				IsActive = u.EmailConfirmed
+			}).ToList();
+	}
+
+	public async Task Buscar()
+	{
+		await CargarUsuarios();
+
+		if (!string.IsNullOrWhiteSpace(ValorFiltro))
+		{
+			if (Filtro == "Email")
+			{
+				ListaUsuarios = ListaUsuarios.Where(u => u.Email.Contains(ValorFiltro, StringComparison.OrdinalIgnoreCase)).ToList();
+			}
+			else if (Filtro == "Role")
+			{
+				ListaUsuarios = ListaUsuarios.Where(u => u.Role.Contains(ValorFiltro, StringComparison.OrdinalIgnoreCase)).ToList();
+			}
+		}
+	}
+
+	public void AbrirEliminar(UsuarioView user)
+	{
+		usuarioSeleccionado = user;
+		mostrarEliminar = true;
+	}
+
+	public void CerrarEliminar()
+	{
+		mostrarEliminar = false;
+	}
+
+	public async Task Eliminar()
+	{
+		var user = await UserManager.FindByIdAsync(usuarioSeleccionado!.Id);
+
+		user.EmailConfirmed = false;
+		await UserManager.UpdateAsync(user);
+
+		mostrarEliminar = false;
+		await CargarUsuarios();
+	}
+}
