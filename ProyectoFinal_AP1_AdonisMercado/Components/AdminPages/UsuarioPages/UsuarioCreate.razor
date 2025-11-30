@@ -1,10 +1,63 @@
 ﻿@page "/usuarios/create"
 @attribute [Authorize(Roles = "Admin")]
+@layout EmptyLayout
 
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 @inject NavigationManager nav
 @rendermode InteractiveServer
+
+<PageTitle>Crear Usuario</PageTitle>
+<div class="container-fluid py-4">
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h2 class="fw-bold">Crear Usuario</h2>
+
+		<a href="/usuarios" class="btn btn-light d-flex align-items-center gap-2">
+			<i class="fa-solid fa-arrow-left"></i> Volver
+		</a>
+	</div>
+
+	<div class="card shadow border-0">
+		<div class="card-body p-4">
+
+			<EditForm Model="@Form" OnValidSubmit="AgregarUsuario" FormName="CreateUser">
+				<DataAnnotationsValidator />
+				<ValidationSummary class="text-danger"/>
+
+				<div class="mb-3">
+					<label class="form-label fw-bold">Email</label>
+					<input type="text" class="form-control" @bind="Form.Email" />
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label fw-bold">Contraseña</label>
+					<input type="text" class="form-control" @bind="Form.Password" />
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label fw-bold">Rol</label>
+					<select class="form-select" @bind="Form.Role">
+						@foreach(var r in Roles)
+						{
+							<option value="@r">@r</option>
+						}
+					</select>
+				</div>
+
+				@if (!string.IsNullOrWhiteSpace(errorMensaje))
+				{
+					<div class="alert alert-danger">@errorMensaje</div>
+				}
+
+				<div class="text-center mt-4">
+					<button type="submit" class="btn btn-danger px-4 d-flex align-items-center mx-auto gap-2">
+						<i class="fa-solid fa-floppy-disk"></i> Guardar
+					</button>
+				</div>
+			</EditForm>
+		</div>
+	</div>
+</div>
 
 @code {
 	public class UsuarioForm
@@ -40,6 +93,7 @@
 		if (existe != null)
 		{
 			errorMensaje = "Ya existe un usuario con este correo.";
+			return;
 		}
 
 		var user  = new ApplicationUser
