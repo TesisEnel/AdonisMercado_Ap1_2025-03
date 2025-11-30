@@ -47,6 +47,7 @@ public class Vehiculo
     public decimal Precio { get; set; }
 
     public bool isActive { get; set; } = true;
+    public string? ImagenUrl { get; set; }
 
     [InverseProperty("Vehiculo")]
     public ICollection<PedidoDetalle> PedidoDetalles { get; set; } = new List<PedidoDetalle>();

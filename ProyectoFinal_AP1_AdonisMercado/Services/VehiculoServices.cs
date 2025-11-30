@@ -14,11 +14,13 @@ public class VehiculoService(IDbContextFactory<Contexto> DbFactory)
             .AnyAsync(v => v.VehiculoId == vehiculoId);
     }
 
-    private async Task<bool> Insertar(Vehiculo vehiculo)
+    public async Task<int> InsertarConId(Vehiculo vehiculo)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
         contexto.Vehiculos.Add(vehiculo);
-        return await contexto.SaveChangesAsync() > 0;
+        await contexto.SaveChangesAsync();
+
+        return vehiculo.VehiculoId;
     }
 
     private async Task<bool> Modificar(Vehiculo vehiculo)
@@ -27,18 +29,22 @@ public class VehiculoService(IDbContextFactory<Contexto> DbFactory)
         contexto.Vehiculos.Update(vehiculo);
         return await contexto.SaveChangesAsync() > 0;
     }
-
-    public async Task<bool> Guardar(Vehiculo vehiculo)
+    public async Task<bool> ActualizarImagen(int idVehiculo, string imagenUrl)
     {
-        if (!await Existe(vehiculo.VehiculoId))
-        {
-            return await Insertar(vehiculo);
+        await using var contexto = await DbFactory.CreateDbContextAsync();
+
+        var vehiculo = await contexto.Vehiculos.FindAsync(idVehiculo);
+
+        if (vehiculo == null)
+        { 
+            return false; 
         }
-        else
-        {
-            return await Modificar(vehiculo);
-        }
+
+        vehiculo.ImagenUrl = imagenUrl;
+
+        return await contexto.SaveChangesAsync() > 0;
     }
+
 
     public async Task<Vehiculo?> Buscar(int vehiculoId)
     {

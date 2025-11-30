@@ -1,0 +1,56 @@
+﻿@page "/vehiculos/create"
+@attribute [Authorize(Roles = "Admin")]
+
+@inject VehiculoService vehiculoService
+@inject NavigationManager nav
+@inject IWebHostEnvironment env
+@rendermode InteractiveServer
+
+@code {
+	public Vehiculo Vehiculo { get; set; } = new();
+	private IBrowserFile? ImagenArchivo;
+	private string? PreviewImagen;
+
+	private async Task OnImagenSelected(InputFileChangeEventArgs e)
+	{
+		ImagenArchivo = e.File;
+	}
+
+	private async Task Guardar()
+	{
+		Vehiculo.isActive = true;
+
+		var nuevoId = await vehiculoService.InsertarConId(Vehiculo);
+
+		if (nuevoId <= 0)
+		{
+			return;
+		}
+
+		if (ImagenArchivo == null)
+		{
+			nav.NavigateTo("/vehiculos", forceLoad: true);
+			return;
+		}
+
+		string folder = Path.Combine(env.WebRootPath, "vehiculos", nuevoId.ToString());
+
+		if (!Directory.Exists(folder))
+		{
+			Directory.CreateDirectory(folder);
+		}
+
+		string nombreArchivo = $"{Guid.NewGuid()}{Path.GetExtension(ImagenArchivo.Name)}";
+		string path = Path.Combine(folder, nombreArchivo);
+
+		await using (var stream = File.Create(path))
+		{
+			await ImagenArchivo.OpenReadStream().CopyToAsync(stream);
+		}
+
+		string ruta = $"/vehiculos/{nuevoId}/{nombreArchivo}";
+		await vehiculoService.ActualizarImagen(nuevoId, ruta);
+
+		nav.NavigateTo("/vehiculos", forceLoad: true);
+	}
+}
