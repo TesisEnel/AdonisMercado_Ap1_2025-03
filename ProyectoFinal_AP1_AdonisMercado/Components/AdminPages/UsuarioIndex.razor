@@ -1,9 +1,111 @@
 ﻿@page "/usuarios"
+
+@attribute [Authorize(Roles = "Admin")]
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 @inject NavigationManager nav
+@rendermode InteractiveServer
 
+<div class="container-fluid py-4">
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h2 class="fw-bold">Usuarios</h2>
 
+		<a href="/admin" class="btn btn-light d-flex align-items-center gap-2">
+			<i class="fa-solid fa-house"></i> Inicio
+		</a>
+	</div>
+
+	<div class="card shadow-sm border-0">
+		<div class="card-header bg-white py-3">
+			<div class="row g-3 align-items-end">
+				<div class="col-md-3">
+					<label class="form-label fw-bold">Filtrar por</label>
+					<select class="form-select" @bind="Filtro">
+						<option value="" disabled selected>Seleccione...</option>
+						<option value="Email">Email</option>
+						<option value="Role">Rol</option>
+					</select>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label fw-bold">Buscar</label>
+					<div class="input-group">
+						<input type="text" class="form-control" @bind="ValorFiltro" placeholder="Buscar..." />
+						<button class="btn btn-danger" @onclick="Buscar">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="col-md-5 text-end">
+					<a href="/usuarios/create" class="btn btn-danger">
+						<i class="fa-solid fa-plus me-2"></i> Agregar Usuario
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-body px-0">
+			<div class="table-responsive">
+				<table class="table table-hover align-middle mb-0">
+					<thead class="bg-light">
+						<tr class="text-center fw-bold">
+							<th>Email</th>
+							<th>Rol</th>
+							<th>Estado</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+
+					<tbody class="text-center">
+						@foreach (var user in ListaUsuarios)
+						{
+							<tr>
+								<td>@user.Email</td>
+								<td>@user.Role</td>
+								<td>
+									@if (user.IsActive)
+									{
+										<span class="badge bg-success">Activo</span>
+									}
+									else
+									{
+										<span class="badge bg-danger">Inactivo</span>
+									}
+								</td>
+								<td class="text-center">
+									<a class="btn btn-sm btn-warning me-2 text-white"
+									   href="/usuario/edit/@user.Id">
+										<i class="fa-solid fa-pen-to-square"></i>
+									</a>
+
+									@if (user.IsActive)
+									{
+										<button class="btn btn-sm btn-danger"
+												@onclick="() => AbrirEliminar(user)">
+											<i class="fa-solid fa-trash"></i>
+										</button>										
+									}
+									else
+									{
+										<button class="btn btn-secondary btn-sm"
+												@onclick="() => Habilitar(user.Id)">
+											<i class="fa fa-user-check"></i>
+										</button>
+									}
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="card-footer text-center">
+			Mostrando @ListaUsuarios.Count usuario(s)
+		</div>
+	</div>
+</div>
 
 @code {
 	public class UsuarioView
@@ -14,17 +116,8 @@
 		public bool IsActive { get; set; }
 	}
 
-	public class UsuarioForm
-	{
-		public string Id { get; set; } = "";
-		public string Email { get; set; } = "";
-		public string Password { get; set; } = "";
-		public string Role { get; set; } = "User";
-	}
-
 	public List<UsuarioView> ListaUsuarios = new();
 	public List<string> Roles = new();
-	public UsuarioForm Form = new();
 	public UsuarioView? usuarioSeleccionado;
 
 	public string Filtro = "";
@@ -35,20 +128,28 @@
 	protected override async Task OnInitializedAsync()
 	{
 		Roles = (await RoleManager.Roles.Select(r => r.Name).ToListAsync())!;
-
+		await CargarUsuarios();
 	}
 
 	private async Task CargarUsuarios()
 	{
-		ListaUsuarios = (await UserManager.Users.ToListAsync())
-			.Select(u => new UsuarioView
+		var users = await UserManager.Users.ToListAsync();
+		ListaUsuarios = new();
+
+		foreach (var u in users)
+		{
+			var roles = await UserManager.GetRolesAsync(u);
+
+			ListaUsuarios.Add(new UsuarioView
 			{
 				Id = u.Id,
-				Email = u.Email,
-				Role = UserManager.GetRolesAsync(u).Result.First(),
+				Email = u.Email ?? "",
+				Role = roles.FirstOrDefault() ?? "Sin Rol",
 				IsActive = u.EmailConfirmed
-			}).ToList();
+			});
+		}
 	}
+
 
 	public async Task Buscar()
 	{
@@ -86,6 +187,15 @@
 		await UserManager.UpdateAsync(user);
 
 		mostrarEliminar = false;
+		await CargarUsuarios();
+	}
+
+	public async Task Habilitar(string userId)
+	{
+		var user = await UserManager.FindByIdAsync(userId);
+		user.EmailConfirmed = true;
+		await UserManager.UpdateAsync(user);
+
 		await CargarUsuarios();
 	}
 }
