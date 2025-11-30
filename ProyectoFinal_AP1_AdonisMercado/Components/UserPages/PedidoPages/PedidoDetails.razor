@@ -97,6 +97,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ListaVehiculos = await vehiculoService.ListarVehiculos();
+        ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.isActive);
     }
 }

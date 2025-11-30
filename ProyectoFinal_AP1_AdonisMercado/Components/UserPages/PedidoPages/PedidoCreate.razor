@@ -365,7 +365,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		ListaVehiculos = await vehiculoService.ListarVehiculos();
+		ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.isActive);
 		ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.DistribuidorId > 0);
 		Pedido.FechaPedido = DateTime.Now;
 	}
