@@ -1,0 +1,90 @@
+﻿@page "/usuarios/edit/{Id}"
+@attribute [Authorize(Roles = "Admin")]
+@layout EmptyLayout
+
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject NavigationManager nav
+@rendermode InteractiveServer
+
+<PageTitle>Editar Usuario</PageTitle>
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = "";
+
+    public class UsuarioForm
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = "";
+
+        [Required]
+        public string Role { get; set; } = "";
+
+        public string? NewPassword { get; set; }
+    }
+
+    public UsuarioForm Form = new();
+    public List<string> Roles = new();
+    public string errorMensaje = "";
+
+    private ApplicationUser? usuario;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Roles = await RoleManager.Roles
+            .Select(r => r.Name!)
+            .ToListAsync();
+
+        usuario = await UserManager.FindByIdAsync(Id);
+
+        if (usuario == null)
+        {
+            nav.NavigateTo("/usuarios", forceLoad: true);
+            return;
+        }
+
+        var roles = await UserManager.GetRolesAsync(usuario);
+
+        Form.Email = usuario.Email;
+        Form.Role = roles.FirstOrDefault() ?? "User";
+    }
+
+    private async Task Guardar()
+    {
+        if (usuario == null)
+        {
+            errorMensaje = "Usuario no encontrado.";
+            return;
+        }
+
+        usuario.Email = Form.Email;
+        usuario.UserName = Form.Email;
+
+        var result = await UserManager.UpdateAsync(usuario);
+        if (!result.Succeeded)
+        {
+            errorMensaje = "Error al editar el usuario.";
+            return;
+        }
+
+        var currentRoles = await UserManager.GetRolesAsync(usuario);
+        await UserManager.RemoveFromRolesAsync(usuario, currentRoles);
+        await UserManager.AddToRoleAsync(usuario, Form.Role);
+
+        if(!string.IsNullOrWhiteSpace(Form.NewPassword))
+        {
+            var token = await UserManager.GeneratePasswordResetTokenAsync(usuario);
+            var passResult = await UserManager.ResetPasswordAsync(usuario, token, Form.NewPassword);
+
+            if (!passResult.Succeeded)
+            {
+                errorMensaje = "Error al intentar cambiar la contraseña.";
+                return;
+            }
+        }
+
+        nav.NavigateTo("/usuarios", forceLoad: true);
+    } c
+}
