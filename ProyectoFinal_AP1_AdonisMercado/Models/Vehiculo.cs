@@ -46,6 +46,8 @@ public class Vehiculo
     [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor que cero.")]
     public decimal Precio { get; set; }
 
+    public bool isActive { get; set; } = true;
+
     [InverseProperty("Vehiculo")]
     public ICollection<PedidoDetalle> PedidoDetalles { get; set; } = new List<PedidoDetalle>();
 }

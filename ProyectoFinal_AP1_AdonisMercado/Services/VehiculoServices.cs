@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProyectoFinal_AP1_AdonisMercado.DAL;
 using ProyectoFinal_AP1_AdonisMercado.Models;
+using System.Linq.Expressions;
 
 namespace ProyectoFinal_AP1_AdonisMercado.Services;
 
@@ -47,25 +48,57 @@ public class VehiculoService(IDbContextFactory<Contexto> DbFactory)
             .FirstOrDefaultAsync(v => v.VehiculoId == vehiculoId);
     }
 
-    public async Task<List<Vehiculo>> ListarVehiculos()
+    public async Task<List<Vehiculo>> ListarVehiculos(Expression<Func<Vehiculo, bool>> criterio)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
         return await contexto.Vehiculos
             .Include(v => v.PedidoDetalles)
+            .Where(criterio)
             .ToListAsync();
+    }
+
+    public async Task<bool> Deshabilitar(int vehiculoId)
+    {
+        await using var contexto = await DbFactory.CreateDbContextAsync();
+        var vehiculo = await contexto.Vehiculos
+            .FirstOrDefaultAsync(v => v.VehiculoId == vehiculoId);
+
+        if (vehiculo == null)
+        {
+            return false;
+        }
+
+        vehiculo.isActive = false;
+        return await contexto.SaveChangesAsync() > 0;
+    }
+
+    public async Task<bool> Habilitar(int vehiculoId)
+    {
+        await using var contexto = await DbFactory.CreateDbContextAsync();
+        var vehiculo = await contexto.Vehiculos
+            .FirstOrDefaultAsync(v => v.VehiculoId == vehiculoId);
+
+        if (vehiculo == null)
+        {
+            return false;
+        }
+
+        vehiculo.isActive = true;
+        return await contexto.SaveChangesAsync() > 0;
     }
 
     public async Task<bool> Eliminar(int vehiculoId)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
-        var vehiculo = await Buscar(vehiculoId);
+        var vehiculo = await contexto.Vehiculos
+            .FirstOrDefaultAsync(p => p.VehiculoId == vehiculoId);
 
-        if (vehiculo != null)
+        if (vehiculo == null)
         {
-            contexto.Vehiculos.Remove(vehiculo);
-            return await contexto.SaveChangesAsync() > 0;
+            return false;
         }
 
-        return false;
+        contexto.Vehiculos.Remove(vehiculo);
+        return await contexto.SaveChangesAsync() > 0;
     }
 }

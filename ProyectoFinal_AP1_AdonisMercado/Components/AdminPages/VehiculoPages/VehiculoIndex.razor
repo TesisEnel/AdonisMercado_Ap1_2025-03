@@ -1,0 +1,167 @@
+﻿@page "/vehiculos"
+@attribute [Authorize(Roles = "Admin")]
+
+@inject VehiculoService vehiculoService
+@inject NavigationManager nav
+@rendermode InteractiveServer
+
+@code {
+    public List<Vehiculo> ListaVehiculos { get; set; } = new();
+
+    public string Filtro { get; set; } = "";
+    public string ValorFiltro { get; set; } = "";
+
+    public Vehiculo? vehiculoSeleccionado;
+    public bool mostrarDeshabilitar = false;
+    public bool mostrarHabilitar = false;
+    public bool mostrarEliminar = false;
+    public bool mostrarDeshabilitados = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarLista();
+    }
+
+    public async Task CargarLista()
+    {
+        if (mostrarDeshabilitados)
+        {
+            ListaVehiculos = await vehiculoService.ListarVehiculos(v => !v.isActive);
+        }
+        else
+        {
+            ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.isActive);
+        }
+
+        await Buscar();
+    }
+
+    public async Task Buscar()
+    {
+        if (!string.IsNullOrWhiteSpace(ValorFiltro))
+        {
+            if (Filtro == "VehiculoId" && int.TryParse(ValorFiltro, out var vehiculoId))
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.VehiculoId == vehiculoId && v.isActive);
+            }
+            else if (Filtro == "Marca")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.MarcaVehiculo.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "Modelo")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.ModeloVehiculo.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "Color")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.ColorVehiculo.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "NumeroChasis")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.NumeroChasis.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "AnioFabricacion" && int.TryParse(ValorFiltro, out var anio))
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.AnioFabricacion == anio && v.isActive);
+            }
+            else if (Filtro == "Motor")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.Motor.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "Transmision")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.Transmision.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "Traccion")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.Traccion.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "NumeroPuertas" && int.TryParse(ValorFiltro, out var puertas))
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.NumeroPuertas == puertas && v.isActive);
+            }
+            else if (Filtro == "Kilometraje" && int.TryParse(ValorFiltro, out var kilometraje))
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.Kilometraje == kilometraje && v.isActive);
+            }
+            else if (Filtro == "Combustible")
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.TipoCombustible.ToLower().Contains(ValorFiltro) && v.isActive);
+            }
+            else if (Filtro == "Precio" && decimal.TryParse(ValorFiltro, out var precio))
+            {
+                ListaVehiculos = await vehiculoService.ListarVehiculos(v => v.Precio == precio && v.isActive);
+            }
+        }
+        else
+        {
+            ListaVehiculos = await vehiculoService.ListarVehiculos(p => p.isActive);
+        }
+    }
+
+    public async Task CambiarLista(ChangeEventArgs e)
+    {
+        mostrarDeshabilitados = (bool)e.Value;
+        await CargarLista();
+	}
+
+	public void AbrirDeshabilitar(Vehiculo v)
+	{
+		vehiculoSeleccionado = v;
+		mostrarDeshabilitar = true;
+	}
+
+	public void AbrirHabilitar(Vehiculo v)
+	{
+		vehiculoSeleccionado = v;
+		mostrarHabilitar = true;
+	}
+
+	public void CerrarDeshabilitar()
+	{
+		mostrarDeshabilitar = false;
+	}
+
+	public void CerrarHabilitar()
+	{
+		mostrarHabilitar = false;
+	}
+
+	public void AbrirEliminar(Vehiculo v)
+	{
+		vehiculoSeleccionado = v;
+		mostrarEliminar = true;
+	}
+
+	public void CerrarEliminar()
+	{
+		mostrarEliminar = false;
+	}
+
+	public async Task Deshabilitar()
+	{
+		var deshabilitado = await vehiculoService.Deshabilitar(vehiculoSeleccionado!.VehiculoId);
+		if (deshabilitado)
+		{
+			mostrarDeshabilitar = false;
+		}
+	}
+
+	public async Task Habilitar()
+	{
+		var habilitado = await vehiculoService.Habilitar(vehiculoSeleccionado!.VehiculoId);
+		if (habilitado)
+		{
+			mostrarHabilitar = false;
+		}
+	}
+
+	public async Task Eliminar()
+	{
+		var eliminado = await vehiculoService.Eliminar(vehiculoSeleccionado!.VehiculoId);
+		if (eliminado)
+		{
+			mostrarEliminar = false;
+		}
+	}
+}
