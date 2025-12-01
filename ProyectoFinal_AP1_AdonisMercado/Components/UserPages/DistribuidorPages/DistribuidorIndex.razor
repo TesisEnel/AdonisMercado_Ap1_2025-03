@@ -144,6 +144,9 @@
     public bool mostrarModal = false;
     public int DistribuidorIdAEliminar { get; set; }
 
+    public bool mostrarPedidos = false;
+    public List<Pedido> ListaPedidosDelDistribuidor { get; set; } = new();
+
     protected override async Task OnInitializedAsync()
     {
         ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => d.isActive);
