@@ -103,4 +103,13 @@ public class DistribuidorServices(IDbContextFactory<Contexto> DbFactory)
         contexto.Distribuidores.Remove(distribuidor);
         return await contexto.SaveChangesAsync() > 0;
     }
+
+    public async Task<List<Pedido>> ObtenerPedidosDelDistribuidor(int distribuidorId)
+    {
+        await using var contexto = await DbFactory.CreateDbContextAsync();
+
+        return await contexto.Pedidos
+            .Where(p => p.DistribuidorId == distribuidorId && p.isActive)
+            .ToListAsync();
+    }
 }
