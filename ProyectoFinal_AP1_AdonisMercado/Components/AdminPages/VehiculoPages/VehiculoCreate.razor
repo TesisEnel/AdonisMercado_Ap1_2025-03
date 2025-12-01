@@ -5,6 +5,7 @@
 @inject VehiculoService vehiculoService
 @inject NavigationManager nav
 @inject IWebHostEnvironment env
+@inject ToastService toastService
 @rendermode InteractiveServer
 
 <div class="container-fluid py-4">
@@ -126,6 +127,7 @@
 
 		if (nuevoId <= 0)
 		{
+			toastService.ShowError("Error al crear el vehiculo.");
 			return;
 		}
 
@@ -155,6 +157,7 @@
 		string ruta = $"/vehiculos/{nombreArchivo}";
 		await vehiculoService.ActualizarImagen(nuevoId, ruta);
 
+		toastService.ShowSuccess("Vehiculo creado exitosamente!");
 		nav.NavigateTo("/vehiculos", forceLoad: true);
 	}
 
