@@ -182,6 +182,9 @@
     public bool mostrarDetalle = false;
     public Pedido? PedidoSeleccionado { get; set; }
 
+    public bool mostrarEnviar = false;
+    public int PedidoIdAEnviar { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         ListaPedidos = await pedidoServices.ListarPedidos(p => p.isActive);
