@@ -25,4 +25,9 @@ public static class ToastServiceExtensions
     {
         return toastService.ShowToast(ToastType.Warning, title, customMessage);
     }
+
+    public static ToastMessage ShowError(this ToastService toastService, string customMessage = null, string title = "Error")
+    {
+        return toastService.ShowToast(ToastType.Danger, title, customMessage);
+    }
 }
