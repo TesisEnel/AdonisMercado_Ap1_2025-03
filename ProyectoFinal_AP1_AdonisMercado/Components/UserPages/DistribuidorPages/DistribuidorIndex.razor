@@ -206,4 +206,9 @@
         ListaPedidosDelDistribuidor = await distribuidorServices.ObtenerPedidosDelDistribuidor(distribuidorId);
         mostrarPedidos = true;
     }
+
+    public void CerrarPedidos()
+    {
+        mostrarPedidos = false;
+    }
 }
