@@ -83,7 +83,16 @@
                                 <td>@pedido.FechaPedido.ToShortDateString()</td>
                                 <td>@pedido.PedidoId</td>
                                 <td>@pedido.NombrePedido</td>
-                                <td>@pedido.Estado</td>
+                                <td>
+                                    @if (pedido.Estado == "Enviado")
+                                    {
+                                        <span class="badge bg-danger">Enviado</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">No Enviado</span>
+                                    }
+                                </td>
                                 <td>@pedido.Distribuidor?.Nombre</td>
                                 <td>
                                     <button class="btn btn-sm btn-success"
