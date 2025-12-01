@@ -5,6 +5,7 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 @inject NavigationManager nav
+@inject ToastService toastService
 @rendermode InteractiveServer
 
 <div class="container-fluid py-4">
@@ -237,6 +238,7 @@
 		await UserManager.UpdateAsync(user);
 
 		mostrarEliminar = false;
+		toastService.ShowSuccess("Usuario deshabilitado exitosamente!");
 		await CargarUsuarios();
 	}
 
@@ -259,6 +261,7 @@
 		await UserManager.UpdateAsync(user);
 
 		mostrarHabilitar = false;
+		toastService.ShowSuccess("Usuario habilitado exitosamente!");
 		await CargarUsuarios();
 	}
 }
