@@ -86,6 +86,10 @@
                                 <td>@pedido.Estado</td>
                                 <td>@pedido.Distribuidor?.Nombre</td>
                                 <td>
+                                    <button class="btn btn-sm btn-primary"
+                                            @onclick="() => AbrirEnviar(pedido.PedidoId)">
+                                        <i class="fa-solid fa-truck"></i>
+                                    </button>
 
                                     <button class="btn btn-sm btn-info"
                                             @onclick="() => VerDetalle(pedido)">
