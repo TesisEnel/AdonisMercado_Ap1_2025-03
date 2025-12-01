@@ -4,6 +4,7 @@
 @attribute [Authorize(Roles = "User")]
 @inject DistribuidorServices distribuidorServices
 @inject NavigationManager nav
+@inject ToastService toastService
 @rendermode InteractiveServer
 
 <PageTitle>Editar Distribuidor</PageTitle>
@@ -101,9 +102,14 @@
             var entity = await distribuidorServices.Buscar(DistribuidorId);
 
             if (entity != null)
+            {
                 Distribuidor = entity;
+            }
             else
+            {
+                toastService.ShowError("El distribuidor no existe.");
                 errorMensaje = "No se encontró el distribuidor.";
+            }
         }
     }
 
@@ -112,8 +118,14 @@
         var ok = await distribuidorServices.Guardar(Distribuidor);
 
         if (ok)
+        {
+            toastService.ShowSuccess("Distribuidor creado exitosamente!");
             nav.NavigateTo("/distribuidores");
+        }
         else
-            errorMensaje = "No se pudo guardar el distribuidor.";
+        {
+            toastService.ShowError("No se pudo crear el distribuidor");
+            errorMensaje = "No se pudo crear el distribuidor.";
+        }
     }
 }
