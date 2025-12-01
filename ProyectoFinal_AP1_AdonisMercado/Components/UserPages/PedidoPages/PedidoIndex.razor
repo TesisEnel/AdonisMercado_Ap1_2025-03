@@ -86,7 +86,7 @@
                                 <td>@pedido.Estado</td>
                                 <td>@pedido.Distribuidor?.Nombre</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary"
+                                    <button class="btn btn-sm btn-success"
                                             @onclick="() => AbrirEnviar(pedido.PedidoId)">
                                         <i class="fa-solid fa-truck"></i>
                                     </button>
@@ -172,6 +172,30 @@
     </div>
 }
 
+@if (mostrarEnviar)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.6);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Enviar al Distribuidor</h5>
+                    <button class="btn-close" @onclick="CerrarEnviar"></button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <i class="fa-solid fa-truck text-danger" style="font-size:50px;"></i>
+                    <p class="mt-3">¿Esta seguro de que desea enviar este pedido?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="CerrarEnviar">Cancelar</button>
+                    <button class="btn btn-danger" @onclick="EnviarPedido">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
     public List<Pedido> ListaPedidos { get; set; } = new();
