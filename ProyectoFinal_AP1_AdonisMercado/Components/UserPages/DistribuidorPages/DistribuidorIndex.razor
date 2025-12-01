@@ -200,4 +200,10 @@
 
         CerrarModal();
     }
+
+    public async Task VerPedidos(int distribuidorId)
+    {
+        ListaPedidosDelDistribuidor = await distribuidorServices.ObtenerPedidosDelDistribuidor(distribuidorId);
+        mostrarPedidos = true;
+    }
 }
