@@ -3,6 +3,7 @@
 
 @inject PedidoServices pedidoServices
 @inject DocumentoServices documentoServices
+@inject ToastService toastService
 @rendermode InteractiveServer
 
 <PageTitle>Documentos</PageTitle>
@@ -348,13 +349,22 @@
             return;
         }
 
-        await documentoServices.Guardar(
+        var subido = await documentoServices.Guardar(
             archivoSeleccionado,
             pedidoSeleccionadoId,
             TipoDocumento
         );
 
-        ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);
+        if (subido)
+        {
+            toastService.ShowSuccess("Documento subido exitosamente!");
+            ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);
+        }
+        else
+        {
+            toastService.ShowError("No se pudo subir el documento.");
+        }
+
 
         CerrarModalSubir();
     }
@@ -410,10 +420,18 @@
         if (documentoAEliminarId <= 0)
             return;
 
-        await documentoServices.Eliminar(documentoAEliminarId);
+        var eliminado = await documentoServices.Eliminar(documentoAEliminarId);
 
-        DocumentosPedido = await documentoServices.ObtenerDocumentosPorPedido(pedidoVerId);
-        ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);
+        if (eliminado)
+        {
+            toastService.ShowSuccess("Documento eliminado exitosamente!");
+            DocumentosPedido = await documentoServices.ObtenerDocumentosPorPedido(pedidoVerId);
+            ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);            
+        }
+        else
+        {
+            toastService.ShowError("Error al eliminar el documento.");
+        }
 
         CancelarEliminar();
         CerrarModalVerBL();
