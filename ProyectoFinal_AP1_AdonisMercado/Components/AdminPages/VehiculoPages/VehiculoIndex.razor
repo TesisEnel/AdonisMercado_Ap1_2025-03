@@ -4,6 +4,7 @@
 
 @inject VehiculoService vehiculoService
 @inject NavigationManager nav
+@inject ToastService toastService
 @rendermode InteractiveServer
 
 <PageTitle>Veh&iacute;culos</PageTitle>
@@ -380,6 +381,12 @@
 		{
 			mostrarDeshabilitar = false;
 			await CargarLista();
+			toastService.ShowSuccess("Vehiculo deshabilitado exitosamente!");
+		}
+		else
+		{
+			mostrarDeshabilitar = false;
+			toastService.ShowError("No se pudo deshabilitar el vehiculo.");
 		}
 	}
 
@@ -390,6 +397,12 @@
 		{
 			mostrarHabilitar = false;
 			await CargarLista();
+			toastService.ShowSuccess("Vehiculo habilitado exitosamente!");
+		}
+		else
+		{
+			mostrarHabilitar = false;
+			toastService.ShowError("No se pudo habilitar el vehiculo.");
 		}
 	}
 
@@ -400,6 +413,12 @@
 		{
 			mostrarEliminar = false;
 			await CargarLista();
+			toastService.ShowSuccess("Vehiculo eliminado exitosamente!");
+		}
+		else
+		{
+			mostrarEliminar = false;
+			toastService.ShowError("No se pudo eliminar el vehiculo.");
 		}
 	}
 }
