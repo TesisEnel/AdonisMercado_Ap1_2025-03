@@ -4,6 +4,7 @@
 
 @inject PedidoServices pedidoServices
 @inject DistribuidorServices distribuidorServices
+@inject ToastService toastService
 @rendermode InteractiveServer
 
 <PageTitle>Deshabilitados</PageTitle>
@@ -157,6 +158,11 @@
 		if (habilitado)
 		{
 			ListaPedidos = await pedidoServices.ListarPedidos(p => !p.isActive);
+			toastService.ShowSuccess("Pedido habilitado exitosamente!");
+		}
+		else
+		{
+			toastService.ShowError("No se pudo habilitar el pedido.");
 		}
 	}
 
@@ -167,6 +173,11 @@
 		if (habilitado)
 		{
 			ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => !d.isActive);
+			toastService.ShowSuccess("Distribuidor habilitado exitosamente!");
+		}
+		else
+		{
+			toastService.ShowError("No se pudo habilitar el distribuidor.");
 		}
 	}
 
@@ -177,6 +188,11 @@
 		if (eliminado)
 		{
 			ListaPedidos = await pedidoServices.ListarPedidos(p => !p.isActive);
+			toastService.ShowSuccess("Pedido eliminado exitosamente!");
+		}
+		else
+		{
+			toastService.ShowError("No se pudo eliminar el pedido.");
 		}
 	}
 
@@ -187,6 +203,11 @@
 		if (eliminado)
 		{
 			ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => !d.isActive);
+			toastService.ShowSuccess("Distribuidor eliminado exitosamente!");
+		}
+		else
+		{
+			toastService.ShowError("No se pudo eliminar el distribuidor.");
 		}
 	}
 }
