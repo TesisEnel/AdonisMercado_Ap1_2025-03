@@ -5,6 +5,7 @@
 @inject VehiculoService vehiculoService
 @inject NavigationManager nav
 @inject IWebHostEnvironment env
+@inject ToastService toastService
 @rendermode InteractiveServer
 
 <PageTitle>Editar Vehiculo</PageTitle>
@@ -166,6 +167,7 @@
 		string ruta = $"/vehiculos/{nombreArchivo}";
 		await vehiculoService.ActualizarImagen(Vehiculo.VehiculoId, ruta);
 
+		toastService.ShowSuccess("Vehiculo modificado exitosamente!");
 		nav.NavigateTo("/vehiculos", forceLoad: true);
 	}
 }
