@@ -299,7 +299,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);
+        ListaPedidos = await pedidoServices.ListarPedidos(p => p.Estado == "Enviado" && p.isActive);
     }
 
     public async Task Buscar()
@@ -308,18 +308,16 @@
         {
             if (Filtro == "PedidoId" && int.TryParse(ValorFiltro, out var id))
             {
-                ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId == id);
+                ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId == id && p.Estado == "Enviado" && p.isActive);
             }
             else if (Filtro == "NombrePedido")
             {
-                ListaPedidos = await pedidoServices.ListarPedidos(
-                    p => p.NombrePedido.ToLower().Contains(ValorFiltro.ToLower())
-                );
+                ListaPedidos = await pedidoServices.ListarPedidos(p => p.NombrePedido.ToLower().Contains(ValorFiltro.ToLower()) && p.Estado == "Enviado" && p.isActive);
             }
         }
         else
         {
-            ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);
+            ListaPedidos = await pedidoServices.ListarPedidos(p => p.isActive && p.Estado == "Enviado");
         }
     }
 
@@ -358,7 +356,7 @@
         if (subido)
         {
             toastService.ShowSuccess("Documento subido exitosamente!");
-            ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);
+            ListaPedidos = await pedidoServices.ListarPedidos(p => p.isActive && p.Estado == "Enviado");
         }
         else
         {
@@ -426,7 +424,7 @@
         {
             toastService.ShowSuccess("Documento eliminado exitosamente!");
             DocumentosPedido = await documentoServices.ObtenerDocumentosPorPedido(pedidoVerId);
-            ListaPedidos = await pedidoServices.ListarPedidos(p => p.PedidoId > 0);            
+            ListaPedidos = await pedidoServices.ListarPedidos(p => p.isActive && p.Estado == "Enviado");
         }
         else
         {
