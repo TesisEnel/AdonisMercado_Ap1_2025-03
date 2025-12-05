@@ -2,112 +2,66 @@
 @inject AuthenticationStateProvider AuthStateProvider
 
 <Toasts class="p-3" AutoHide="true" StackLength="3" Placement="ToastsPlacement.TopRight" />
-<div class="wrapper bg-danger">
 
-    <!-- SIDEBAR -->
-    <nav id="sidebar" class="sidebar js-sidebar">
-        <div class="sidebar-content js-simplebar">
+<nav class="navbar navbar-expand-lg bg-danger py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="images/autofranklin-layout-removebg-preview.png"
+                 alt="AutoFranklin Logo"
+                 style="height:75px; width:auto;" class="me-4" />
+        </a>
 
-            <a class="sidebar-brand" href="/">
-                <span class="align-middle">AutoFranklin</span>
-            </a>
+        <button class="navbar-toggler" type="button" style="border:none;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <ul class="sidebar-nav">
+        <div class="navbar-collapse show">
 
-                <li class="sidebar-header">Menú</li>
+            <ul class="navbar-nav me-auto gap-2">
 
-                <li class="sidebar-item">
-                    <NavLink class="sidebar-link" href="">
-                        <i class="fa-solid fa-house align-middle me-2"></i>
-                        <span class="align-middle">Inicio</span>
-                    </NavLink>
+                <li class="nav-item">
+                    <NavLink href="/admin" class="nav-link text-white fw-semibold">Inicio</NavLink>
                 </li>
 
-                <li class="sidebar-item">
-                    <NavLink class="sidebar-link" href="/distribuidores">
-                        <i class="fa-solid fa-users align-middle me-2"></i>
-                        <span class="align-middle">Distribuidores</span>
-                    </NavLink>
+                <li class="nav-item">
+                    <NavLink href="/distribuidores" class="nav-link text-white fw-semibold">Distribuidores</NavLink>
                 </li>
 
-                <li class="sidebar-item">
-                    <NavLink class="sidebar-link" href="/pedidos">
-                        <i class="fa-solid fa-cart-shopping align-middle me-2"></i>
-                        <span class="align-middle">Pedidos</span>
-                    </NavLink>
+                <li class="nav-item">
+                    <NavLink href="/pedidos" class="nav-link text-white fw-semibold">Pedidos</NavLink>
                 </li>
 
-                <li class="sidebar-item">
-                    <NavLink class="sidebar-link" href="/documentos">
-                        <i class="fa-solid fa-file-lines align-middle me-2"></i>
-                        <span class="align-middle">Documentos</span>
-                    </NavLink>
+                <li class="nav-item">
+                    <NavLink href="/documentos" class="nav-link text-white fw-semibold">Documentos</NavLink>
                 </li>
 
             </ul>
-        </div>
-    </nav>
 
-    <!-- MAIN -->
-    <div class="main">
+            <div class="d-flex align-items-center gap-3">
 
-        <!-- TOPBAR -->
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
+                @if (isAuthenticated)
+                {
+                    <a href="/Account/Manage" class="btn btn-outline-light d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-user"></i> @userName
+                    </a>
 
-            <a class="sidebar-toggle js-sidebar-toggle">
-                <i class="hamburger align-self-center"></i>
-            </a>
+                    <a href="/DoLogout" class="btn btn-danger d-flex align-items-center gap-2" style="border-color: white;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Salir
+                    </a>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="btn btn-light">Iniciar sesión</a>
+                }
 
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav ms-auto">
-
-                    @if (isAuthenticated)
-                    {
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fa-solid fa-user me-2"></i>
-                                <span class="text-dark">@userName</span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end">
-
-                                <a class="dropdown-item" href="/Account/Manage">
-                                    <i class="fa-solid fa-gear me-2"></i>
-                                    Perfil
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <a class="dropdown-item text-danger fw-bold" href="/DoLogout">
-                                    <i class="fa-solid fa-right-from-bracket me-2"></i>
-                                    Cerrar sesión
-                                </a>
-
-                            </div>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Account/Login">
-                                <i class="fa-solid fa-right-to-bracket me-2"></i>
-                                Iniciar sesión
-                            </a>
-                        </li>
-                    }
-
-                </ul>
             </div>
 
-        </nav>
-
-        <main class="content">
-            @Body
-        </main>
-
+        </div>
     </div>
+</nav>
 
+<div class="container-fluid py-4">
+    @Body
 </div>
 
 @code {
@@ -120,6 +74,6 @@
         var user = authState.User;
 
         isAuthenticated = user.Identity?.IsAuthenticated ?? false;
-        userName = isAuthenticated ? user.Identity?.Name : null;
+        userName = isAuthenticated ? user.Identity?.Name : "";
     }
 }
