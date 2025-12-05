@@ -37,7 +37,7 @@
 
         <StatusMessage Message="@Message" />
 
-        <EditForm Model="Input" OnValidSubmit="RegisterUser">
+        <EditForm Model="Input" OnValidSubmit="RegisterUser" FormName="RegisterUser">
 
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger mb-3" />
@@ -86,11 +86,6 @@
                 ¿Ya tienes una cuenta?
                 <a class="text-danger fw-semibold" href="/Account/Login">
                     Inicia sesión
-                </a>
-            </p>
-            <p>
-                <a class="text-danger fw-semibold" href="/Account/ResendEmailConfirmation">
-                    Reenviar confirmación de correo
                 </a>
             </p>
         </div>
