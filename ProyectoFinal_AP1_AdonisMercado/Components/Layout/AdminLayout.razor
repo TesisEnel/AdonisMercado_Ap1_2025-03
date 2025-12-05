@@ -37,17 +37,17 @@
 
                 @if (isAuthenticated)
                 {
-                    <a href="/Account/Manage" class="btn btn-sm btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:#BD1717; color:white;">
+                    <a href="/Account/Manage" class="btn btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:#BD1717; color:white;">
                         <i class="fa-solid fa-user"></i> @userName
                     </a>
 
-                    <a href="/DoLogout" class="btn btn-sm btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:white;">
+                    <a href="/DoLogout" class="btn btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:white;">
                         <i class="fa-solid fa-right-from-bracket"></i> Salir
                     </a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="btn btn-sm btn-danger" style="background: #BD1717; border-color: #BD1717; color:white;">Iniciar sesión</a>
+                    <a href="/Account/Login" class="btn btn-danger" style="background: #BD1717; border-color: #BD1717; color:white;">Iniciar sesión</a>
                 }
 
             </div>
