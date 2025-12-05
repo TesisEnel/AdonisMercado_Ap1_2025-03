@@ -10,23 +10,20 @@
 
 <PageTitle>Perfil</PageTitle>
 
-<div class="container-fluid d-flex justify-content-center align-items-center">
-    <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%; border-radius:15px;">
+<div class="container-fluid d-flex justify-content-center align-items-center" style="padding-top: 70px;">
+    <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%; border-radius:15px; ">
 
-        <!-- HEADER -->
         <div class="text-center mb-3">
             <h3 class="fw-bold text-dark mt-3">Mi Perfil</h3>
         </div>
 
         <StatusMessage />
 
-        <!-- FORM -->
         <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync">
 
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger mb-3" />
 
-            <!-- USERNAME -->
             <div class="mb-3">
                 <label for="username" class="form-label fw-semibold">Correo de usuario</label>
                 <input type="text"
@@ -36,7 +33,6 @@
                        disabled />
             </div>
 
-            <!-- PHONE -->
             <div class="mb-3">
                 <label for="Input.PhoneNumber" class="form-label fw-semibold">Número de teléfono</label>
                 <InputText @bind-Value="Input.PhoneNumber"
@@ -46,7 +42,6 @@
                 <ValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
             </div>
 
-            <!-- BUTTON -->
             <button type="submit" class="btn w-100 text-white fw-semibold" style="background:#BD1717;">
                 Guardar cambios
             </button>
