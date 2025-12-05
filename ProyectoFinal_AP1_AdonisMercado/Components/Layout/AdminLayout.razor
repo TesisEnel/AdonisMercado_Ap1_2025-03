@@ -1,106 +1,63 @@
 ﻿@inherits LayoutComponentBase
 @inject AuthenticationStateProvider AuthStateProvider
+
 <Toasts class="p-3" AutoHide="true" StackLength="3" Placement="ToastsPlacement.TopRight" />
 
-<div class="wrapper bg-danger">
+<nav class="navbar navbar-expand-lg py-3" style="background: #BD1717; color:white;">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="images/autofranklin-layout-removebg-preview.png"
+                 alt="AutoFranklin Logo"
+                 style="height:45px; width:auto;" class="me-4" />
+        </a>
 
-    <!-- SIDEBAR -->
-    <nav id="sidebar" class="sidebar js-sidebar">
-        <div class="sidebar-content js-simplebar">
+        <button class="navbar-toggler" type="button" style="border:none;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <a class="sidebar-brand" href="/admin">
-                <span class="align-middle">AutoFranklin</span>
-            </a>
+        <div class="navbar-collapse show">
 
-            <ul class="sidebar-nav">
+            <ul class="navbar-nav me-auto gap-2">
 
-                <li class="sidebar-header">Menú</li>
-
-                <li class="sidebar-item">
-                    <NavLink class="sidebar-link" href="/admin">
-                        <i class="fa-solid fa-house align-middle me-2"></i>
-                        <span class="align-middle">Inicio</span>
-                    </NavLink>
+                <li class="nav-item">
+                    <NavLink href="/admin" class="nav-link text-white fw-semibold">Inicio</NavLink>
                 </li>
 
-                <li class="sidebar-item">
-                    <NavLink class="sidebar-link" href="/deshabilitados">
-                        <i class="fa-solid fa-circle-xmark align-middle me-2"></i>
-                        <span class="align-middle">Deshabilitados</span>
-                    </NavLink>
+                <li class="nav-item">
+                    <NavLink href="/deshabilitados" class="nav-link text-white fw-semibold">Deshabilitados</NavLink>
                 </li>
 
-                <li class="sidebar-item">
-                    <NavLink class="sidebar-link" href="/vehiculos">
-                        <i class="fa-solid fa-car align-middle me-2"></i>
-                        <span class="align-middle">Vehiculos</span>
-                    </NavLink>
+                <li class="nav-item">
+                    <NavLink href="/vehiculos" class="nav-link text-white fw-semibold">Veh&iacute;culos</NavLink>
                 </li>
 
             </ul>
-        </div>
-    </nav>
 
-    <!-- MAIN -->
-    <div class="main">
+            <div class="d-flex align-items-center gap-3">
 
-        <!-- TOPBAR -->
-        <nav class="navbar navbar-expand navbar-light navbar-bg">
+                @if (isAuthenticated)
+                {
+                    <a href="/Account/Manage" class="btn btn-sm btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:#BD1717; color:white;">
+                        <i class="fa-solid fa-user"></i> @userName
+                    </a>
 
-            <a class="sidebar-toggle js-sidebar-toggle">
-                <i class="hamburger align-self-center"></i>
-            </a>
+                    <a href="/DoLogout" class="btn btn-sm btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:white;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Salir
+                    </a>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="btn btn-sm btn-danger" style="background: #BD1717; border-color: #BD1717; color:white;">Iniciar sesión</a>
+                }
 
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav ms-auto">
-
-                    @if (isAuthenticated)
-                    {
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fa-solid fa-user me-2"></i>
-                                <span class="text-dark">@userName</span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end">
-
-                                <a class="dropdown-item" href="/Account/Manage">
-                                    <i class="fa-solid fa-gear me-2"></i>
-                                    Perfil
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-
-                                <a class="dropdown-item text-danger fw-bold" href="/DoLogout">
-                                    <i class="fa-solid fa-right-from-bracket me-2"></i>
-                                    Cerrar sesión
-                                </a>
-
-                            </div>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Account/Login">
-                                <i class="fa-solid fa-right-to-bracket me-2"></i>
-                                Iniciar sesión
-                            </a>
-                        </li>
-                    }
-
-                </ul>
             </div>
 
-        </nav>
-
-        <main class="content">
-            @Body
-        </main>
-
+        </div>
     </div>
+</nav>
 
+<div class="container-fluid py-4">
+    @Body
 </div>
 
 @code {
@@ -113,6 +70,6 @@
         var user = authState.User;
 
         isAuthenticated = user.Identity?.IsAuthenticated ?? false;
-        userName = isAuthenticated ? user.Identity?.Name : null;
+        userName = isAuthenticated ? user.Identity?.Name : "";
     }
 }
