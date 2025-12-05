@@ -18,93 +18,81 @@
 
 <PageTitle>Crear cuenta</PageTitle>
 
-<div class="container h-100 d-flex align-items-center justify-content-center">
-    <div class="row justify-content-center w-100 mt-4">
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 80vh;">
 
-        <div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4">
+    <div class="card shadow-lg p-4"
+         style="max-width: 500px; width:100%; border-radius:15px;">
 
-            <!-- CARD -->
-            <div class="card shadow-lg">
-                <div class="text-center mt-4">
-                    <img src="images/auto-franklin-logo-removebg-preview.png"
-                         alt="Logo"
-                         class="img-fluid"
-                         style="max-height: 150px;" />
-                </div>
-                <!-- HEADER -->
-                <div class="card-header text-center">
-                    <h2 class="card-title mb-0 fw-bold">Crear cuenta</h2>
-                </div>
+        <!-- LOGO -->
+        <div class="text-center mb-4">
+            <img src="images/auto-franklin-logo-removebg-preview.png"
+                 class="img-fluid"
+                 style="max-height:150px;" />
+            <h3 class="fw-bold mt-3 text-dark">Crear cuenta</h3>
 
-                <!-- BODY -->
-                <div class="card-body p-4">
+            <p class="text-muted">
+                Regístrate para acceder a tu cuenta AutoFranklin.
+            </p>
+        </div>
 
-                    <StatusMessage Message="@Message" />
+        <StatusMessage Message="@Message" />
 
-                    <EditForm Model="Input" method="post" OnValidSubmit="RegisterUser" FormName="Register">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary class="text-danger mb-3" />
+        <EditForm Model="Input" OnValidSubmit="RegisterUser">
 
-                        <!-- EMAIL -->
-                        <div class="mb-3">
-                            <label for="Input.Email" class="form-label">Correo electrónico</label>
-                            <InputText @bind-Value="Input.Email"
-                                       id="Input.Email"
-                                       class="form-control"
-                                       placeholder="nombre@correo.com"
-                                       autocomplete="username" />
-                            <ValidationMessage For="() => Input.Email" class="text-danger" />
-                        </div>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger mb-3" />
 
-                        <!-- PASSWORD -->
-                        <div class="mb-3">
-                            <label for="Input.Password" class="form-label">Contraseña</label>
-                            <InputText type="password"
-                                       @bind-Value="Input.Password"
-                                       id="Input.Password"
-                                       class="form-control"
-                                       placeholder="••••••••"
-                                       autocomplete="new-password" />
-                            <ValidationMessage For="() => Input.Password" class="text-danger" />
-                        </div>
-
-                        <!-- CONFIRM PASSWORD -->
-                        <div class="mb-3">
-                            <label for="Input.ConfirmPassword" class="form-label">Confirmar contraseña</label>
-                            <InputText type="password"
-                                       @bind-Value="Input.ConfirmPassword"
-                                       id="Input.ConfirmPassword"
-                                       class="form-control"
-                                       placeholder="••••••••"
-                                       autocomplete="new-password" />
-                            <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-                        </div>
-
-                        <!-- BUTTON -->
-                        <button type="submit" class="btn btn-danger w-100">
-                            Crear cuenta
-                        </button>
-                    </EditForm>
-
-                    <hr />
-
-                    <!-- LINKS -->
-                    <div class="text-center">
-                        <p>
-                            ¿Ya tienes una cuenta?
-                            <a href="/Account/Login" class="text-decoration-none text-danger">Inicia sesión</a>
-                        </p>
-
-                        <p>
-                            <a href="/Account/ResendEmailConfirmation" class="text-decoration-none text-danger">
-                                Reenviar confirmación de correo
-                            </a>
-                        </p>
-                    </div>
-
-                </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Correo electrónico</label>
+                <InputText @bind-Value="Input.Email"
+                           class="form-control"
+                           placeholder="nombre@correo.com"
+                           autocomplete="username" />
+                <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
 
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Contraseña</label>
+                <InputText @bind-Value="Input.Password"
+                           type="password"
+                           class="form-control"
+                           placeholder="••••••••"
+                           autocomplete="new-password" />
+                <ValidationMessage For="() => Input.Password" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Confirmar contraseña</label>
+                <InputText @bind-Value="Input.ConfirmPassword"
+                           type="password"
+                           class="form-control"
+                           placeholder="••••••••"
+                           autocomplete="new-password" />
+                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+            </div>
+
+            <button type="submit"
+                    class="btn w-100 mt-2"
+                    style="background:#BD1717; color:white;">
+                Crear cuenta
+            </button>
+
+        </EditForm>
+
+        <hr />
+
+        <div class="text-center mt-3">
+            <p>
+                ¿Ya tienes una cuenta?
+                <a class="text-danger fw-semibold" href="/Account/Login">
+                    Inicia sesión
+                </a>
+            </p>
+            <p>
+                <a class="text-danger fw-semibold" href="/Account/ResendEmailConfirmation">
+                    Reenviar confirmación de correo
+                </a>
+            </p>
         </div>
     </div>
 </div>
@@ -118,7 +106,10 @@
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
-    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+    private string? Message =>
+        identityErrors is null
+        ? null
+        : $"Error: {string.Join(", ", identityErrors.Select(e => e.Description))}";
 
     protected override void OnInitialized()
     {
@@ -132,6 +123,7 @@
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
         var result = await UserManager.CreateAsync(user, Input.Password);
 
         if (!result.Succeeded)
@@ -140,49 +132,46 @@
             return;
         }
 
-        Logger.LogInformation("User created a new account with password.");
+        Logger.LogInformation("Nuevo usuario creado.");
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
         var callbackUrl = NavigationManager.GetUriWithQueryParameters(
             NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
-            new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
+            new Dictionary<string, object?>
+            {
+                ["userId"] = userId,
+                ["code"] = code,
+                ["returnUrl"] = ReturnUrl
+            });
 
         await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
-            RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
+            RedirectManager.RedirectTo("Account/RegisterConfirmation",
                 new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
         }
         else
         {
-            await SignInManager.SignInAsync(user, isPersistent: false);
+            await SignInManager.SignInAsync(user, false);
             RedirectManager.RedirectTo(ReturnUrl);
         }
     }
 
     private ApplicationUser CreateUser()
     {
-        try
-        {
-            return Activator.CreateInstance<ApplicationUser>();
-        }
-        catch
-        {
-            throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor.");
-        }
+        return Activator.CreateInstance<ApplicationUser>()
+            ?? throw new InvalidOperationException($"No se pudo crear '{nameof(ApplicationUser)}'");
     }
 
     private IUserEmailStore<ApplicationUser> GetEmailStore()
     {
         if (!UserManager.SupportsUserEmail)
-        {
-            throw new NotSupportedException("The default UI requires a user store with email support.");
-        }
+            throw new NotSupportedException("El sistema requiere soporte de email.");
+
         return (IUserEmailStore<ApplicationUser>)UserStore;
     }
 
@@ -193,12 +182,13 @@
         public string Email { get; set; } = "";
 
         [Required]
-        [StringLength(100, ErrorMessage = "La contraseña debe tener entre {2} y {1} caracteres.", MinimumLength = 6)]
+        [StringLength(100, MinimumLength = 6,
+            ErrorMessage = "La contraseña debe tener entre {2} y {1} caracteres.")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
 
-        [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; } = "";
     }
 }
