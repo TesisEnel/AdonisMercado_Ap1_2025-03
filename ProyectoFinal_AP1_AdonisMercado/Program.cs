@@ -6,6 +6,7 @@ using ProyectoFinal_AP1_AdonisMercado.Components.Account;
 using ProyectoFinal_AP1_AdonisMercado.DAL;
 using ProyectoFinal_AP1_AdonisMercado.Data;
 using ProyectoFinal_AP1_AdonisMercado.Services;
+using BlazorBootstrap;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,11 +38,12 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddBlazorBootstrap();
 builder.Services.AddScoped<DistribuidorServices>();
 builder.Services.AddScoped<PedidoServices>();
 builder.Services.AddScoped<DocumentoServices>();
 builder.Services.AddScoped<VehiculoService>();
+
+builder.Services.AddBlazorBootstrap();
 
 var app = builder.Build();
 
