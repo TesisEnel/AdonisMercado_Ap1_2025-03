@@ -8,59 +8,48 @@
 @rendermode InteractiveServer
 
 <PageTitle>Deshabilitados</PageTitle>
+
 <div class="container-fluid py-4">
-	@if (tabSeleccionado == 0)
-	{
-		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h2 class="fw-bold">Distribuidores Deshabilitados</h2>
-			<a href="/admin" class="btn btn-light">
-				<i class="fa-solid fa-house"></i> Inicio
-			</a>
-		</div>
-	}
-	else if (tabSeleccionado == 1)
-	{
-		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h2 class="fw-bold">Pedidos Deshabilitados</h2>
-			<a href="/admin" class="btn btn-light">
-				<i class="fa-solid fa-house"></i> Inicio
-			</a>
-		</div>
-	}
 
-	<ul class="nav nav-tabs mb-3" id="deshabilitadosTabs">
-		<li class="nav-item">
-			<button class="nav-link @(tabSeleccionado == 0 ? "active" : "")"
-					@onclick="() => CambiarTab(0)">
-				<i class="fa fa-users"></i> Distribuidores
-			</button>
-		</li>
+	<div class="text-center mb-3">
+		<h2 class="fw-bold">
+			@(tabSeleccionado == 0 ? "Distribuidores Deshabilitados" : "Pedidos Deshabilitados")
+		</h2>
+	</div>
 
-		<li class="nav-item">
-			<button class="nav-link @(tabSeleccionado == 1 ? "active" : "")"
-					@onclick="() => CambiarTab(1)">
-				<i class="fa fa-box"></i> Pedidos
-			</button>
-		</li>
-	</ul>
+	<div class="d-flex justify-content-center mb-4">
+		<ul class="nav nav-tabs" id="deshabilitadosTabs" style="max-width: 500px;">
+			<li class="nav-item">
+				<button class="nav-link @(tabSeleccionado == 0 ? "active" : "")"
+						@onclick="() => CambiarTab(0)">
+					<i class="fa fa-users"></i> Distribuidores
+				</button>
+			</li>
 
+			<li class="nav-item">
+				<button class="nav-link @(tabSeleccionado == 1 ? "active" : "")"
+						@onclick="() => CambiarTab(1)">
+					<i class="fa fa-box"></i> Pedidos
+				</button>
+			</li>
+		</ul>
+	</div>
 
-	<div class="card shadow-sm border-0">
+	<div class="card shadow-sm border-0 mx-auto" style="max-width: 1500px;">
 		<div class="card-body">
 
-			<!-- Distribuidores Deshabilitados -->
 			@if (tabSeleccionado == 0)
 			{
 				<div class="table-responsive">
-					<table class="table table-hover text-center">
+					<table class="table table-hover text-center align-middle mb-0">
 						<thead class="table-light fw-bold">
 							<tr>
 								<th>ID</th>
 								<th>Nombre</th>
 								<th>Email</th>
-								<th>Tel&eacute;fono</th>
+								<th>Teléfono</th>
 								<th>Fax</th>
-								<th>Acci&oacute;n</th>
+								<th>Acción</th>
 							</tr>
 						</thead>
 
@@ -74,14 +63,19 @@
 									<td>@d.Telefono</td>
 									<td>@d.Fax</td>
 									<td>
-										<button class="btn btn-success btn-sm"
-												@onclick="() => HabilitarDistribuidor(d.DistribuidorId)">
-											<i class="fa fa-check"></i>
-										</button>
-										<button class="btn btn-danger btn-sm"
-												@onclick="() => EliminarDistribuidor(d.DistribuidorId)">
-											<i class="fa-solid fa-trash"></i>
-										</button>
+										<div class="d-flex justify-content-center gap-2">
+
+											<button class="btn btn-sm btn-success"
+													@onclick="() => HabilitarDistribuidor(d.DistribuidorId)">
+												<i class="fa fa-check"></i>
+											</button>
+
+											<button class="btn btn-sm btn-danger"
+													@onclick="() => EliminarDistribuidor(d.DistribuidorId)">
+												<i class="fa-solid fa-trash"></i>
+											</button>
+
+										</div>
 									</td>
 								</tr>
 							}
@@ -90,11 +84,10 @@
 				</div>
 			}
 
-			<!-- Pedidos Deshabilitados -->
 			@if (tabSeleccionado == 1)
 			{
 				<div class="table-responsive">
-					<table class="table table-hover text-center">
+					<table class="table table-hover text-center align-middle mb-0">
 						<thead class="table-light fw-bold">
 							<tr>
 								<th>Fecha</th>
@@ -102,7 +95,7 @@
 								<th>Nombre Pedido</th>
 								<th>Estado</th>
 								<th>Distribuidor</th>
-								<th>Acci&oacute;n</th>
+								<th>Acción</th>
 							</tr>
 						</thead>
 
@@ -115,28 +108,38 @@
 									<td>@p.NombrePedido</td>
 									<td>@p.Estado</td>
 									<td>@p.Distribuidor?.Nombre</td>
+
 									<td>
-										<button class="btn btn-success btn-sm"
-												@onclick="() => HabilitarPedido(p.PedidoId)">
-											<i class="fa fa-check"></i>	
-										</button>
-										<button class="btn btn-danger btn-sm"
-												@onclick="() => EliminarPedido(p.PedidoId)">
-											<i class="fa-solid fa-trash"></i>
-										</button>
+										<div class="d-flex justify-content-center gap-2">
+
+											<button class="btn btn-sm btn-success"
+													@onclick="() => HabilitarPedido(p.PedidoId)">
+												<i class="fa fa-check"></i>
+											</button>
+
+											<button class="btn btn-sm btn-danger"
+													@onclick="() => EliminarPedido(p.PedidoId)">
+												<i class="fa-solid fa-trash"></i>
+											</button>
+
+										</div>
 									</td>
+
 								</tr>
 							}
 						</tbody>
 					</table>
 				</div>
 			}
+
 		</div>
 	</div>
+
 </div>
 
 @code {
 	private int tabSeleccionado = 0;
+
 	public List<Pedido> ListaPedidos { get; set; } = new();
 	public List<Distribuidor> ListaDistribuidores { get; set; } = new();
 
@@ -153,61 +156,57 @@
 
 	public async Task HabilitarPedido(int pedidoId)
 	{
-		var habilitado = await pedidoServices.Habilitar(pedidoId);
-
-		if (habilitado)
+		var ok = await pedidoServices.Habilitar(pedidoId);
+		if (ok)
 		{
 			ListaPedidos = await pedidoServices.ListarPedidos(p => !p.isActive);
-			toastService.ShowSuccess("Pedido habilitado exitosamente!");
+			toastService.ShowSuccess("Pedido habilitado!");
 		}
 		else
 		{
-			toastService.ShowError("No se pudo habilitar el pedido.");
+			toastService.ShowError("Error al habilitar pedido");
 		}
 	}
 
 	public async Task HabilitarDistribuidor(int distribuidorId)
 	{
-		var habilitado = await distribuidorServices.Habilitar(distribuidorId);
-
-		if (habilitado)
+		var ok = await distribuidorServices.Habilitar(distribuidorId);
+		if (ok)
 		{
 			ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => !d.isActive);
-			toastService.ShowSuccess("Distribuidor habilitado exitosamente!");
+			toastService.ShowSuccess("Distribuidor habilitado!");
 		}
 		else
 		{
-			toastService.ShowError("No se pudo habilitar el distribuidor.");
+			toastService.ShowError("Error al habilitar distribuidor");
 		}
 	}
 
 	public async Task EliminarPedido(int pedidoId)
 	{
-		var eliminado = await pedidoServices.Eliminar(pedidoId);
-
-		if (eliminado)
+		var ok = await pedidoServices.Eliminar(pedidoId);
+		if (ok)
 		{
 			ListaPedidos = await pedidoServices.ListarPedidos(p => !p.isActive);
-			toastService.ShowSuccess("Pedido eliminado exitosamente!");
+			toastService.ShowSuccess("Pedido eliminado!");
 		}
 		else
 		{
-			toastService.ShowError("No se pudo eliminar el pedido.");
+			toastService.ShowError("No se pudo eliminar");
 		}
 	}
 
 	public async Task EliminarDistribuidor(int distribuidorId)
 	{
-		var eliminado = await distribuidorServices.Eliminar(distribuidorId);
-
-		if (eliminado)
+		var ok = await distribuidorServices.Eliminar(distribuidorId);
+		if (ok)
 		{
 			ListaDistribuidores = await distribuidorServices.ListarDistribuidores(d => !d.isActive);
-			toastService.ShowSuccess("Distribuidor eliminado exitosamente!");
+			toastService.ShowSuccess("Distribuidor eliminado!");
 		}
 		else
 		{
-			toastService.ShowError("No se pudo eliminar el distribuidor.");
+			toastService.ShowError("No se pudo eliminar");
 		}
 	}
 }
