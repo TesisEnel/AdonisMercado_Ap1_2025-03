@@ -2,6 +2,10 @@
 @attribute [Authorize(Roles = "User")]
 @layout EmptyLayout
 
+@inject PedidoServices pedidoServices
+@inject DistribuidorServices distribuidorServices
+@inject DocumentoServices documentoServices
+
 <div class="container-fluid p-4">
 
     <div class="text-center mb-4">
@@ -59,4 +63,28 @@
 
 </div>
 
-@code {}
+@code {
+    public int TotalDistribuidores { get; set; }
+    public int PedidosActivos { get; set; }
+    public int PedidosEnviados { get; set; }
+    public int DocumentosPendientes { get; set; }
+    public int PedidosNoEnviados { get; set; }
+
+    public List<Pedido> UltimosPedidos { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        TotalDistribuidores = (await distribuidorServices.ListarDistribuidores(d => d.isActive)).Count;
+
+        var pedidos = await pedidoServices.ListarPedidos(p => p.isActive);
+        PedidosActivos = pedidos.Count;
+        PedidosEnviados = pedidos.Count(p => p.Estado == "Enviado");
+        PedidosNoEnviados = pedidos.Count(p => p.Estado == "No Enviado");
+
+        UltimosPedidos = pedidos
+            .OrderByDescending(p => p.PedidoId)
+            .Take(6)
+            .ToList();
+    }
+}
+
