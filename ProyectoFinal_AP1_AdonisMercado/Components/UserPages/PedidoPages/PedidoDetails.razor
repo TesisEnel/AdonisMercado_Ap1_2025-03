@@ -63,10 +63,10 @@
 
                                 <tr>
                                     <td>
-                                        <img src="@($"/vehiculos/{v?.VehiculoId}.jpg")"
+                                        <img src="@(string.IsNullOrEmpty(v?.ImagenUrl) ? "/vehiculos/default.jpg" : v.ImagenUrl)"
+                                             onerror="this.src='/vehiculos/default.jpg'"
                                              class="img-thumbnail"
-                                             style="width:60px; height:60px; object-fit:cover;"
-                                             onerror="this.src='/vehiculos/default.jpg'" />
+                                             style="width:60px; height:60px; object-fit:cover;" />
                                     </td>
 
                                     <td>@v?.MarcaVehiculo @v?.ModeloVehiculo</td>

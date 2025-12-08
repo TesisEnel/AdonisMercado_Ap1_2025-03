@@ -124,7 +124,7 @@
                                         <td>@v.TipoCombustible</td>
                                         <td>@det.Cantidad</td>
                                         <td>USD$@det.PrecioUnitario</td>
-                                        <td>USD$@(det.Cantidad * det.PrecioUnitario)</td>
+                                        <td>USD$@(det.Cantidad* det.PrecioUnitario)</td>
                                         <td>
                                             <button class="btn btn-sm btn-danger"
                                                     @onclick="() => RemoverDetalle(det)">
@@ -147,7 +147,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label fw-bold">Total</label>
-                            <input type="text" class="form-control" readonly 
+                            <input type="text" class="form-control" readonly
                                    value="USD$@Pedido.PedidoDetalles.Sum(p => p.Cantidad * p.PrecioUnitario)" />
                         </div>
                     </div>
@@ -190,7 +190,8 @@
                             <div class="col-12 col-md-4 col-lg-3 mb-3">
                                 <div class="card shadow-sm">
 
-                                    <img src="@($"/vehiculos/{v.VehiculoId}.jpg")"
+                                    <img src="@(string.IsNullOrEmpty(v.ImagenUrl) ? "/vehiculos/default.jpg" : v.ImagenUrl)"
+                                         onerror="this.src='/vehiculos/default.jpg'"
                                          class="card-img-bottom"
                                          style="height:300px; object-fit:cover;" />
 
@@ -253,7 +254,7 @@
                 <div class="modal-body">
 
                     <div class="text-center mb-3">
-                        <img src="@($"/vehiculos/{VehiculoSeleccionado.VehiculoId}.jpg")"
+                        <img src="@(string.IsNullOrEmpty(VehiculoSeleccionado.ImagenUrl) ? "/vehiculos/default.jpg" : VehiculoSeleccionado.ImagenUrl)"
                              onerror="this.src='/vehiculos/default.jpg'"
                              class="img-fluid rounded shadow-sm"
                              style="max-height:180px; object-fit:cover;" />
@@ -306,7 +307,8 @@
 
                     <div class="row">
                         <div class="col-md-5 text-center mb-3">
-                            <img src="@($"/vehiculos/{VehiculoSeleccionado.VehiculoId}.jpg")"
+                            <img src="@(string.IsNullOrEmpty(VehiculoSeleccionado.ImagenUrl) ? "/vehiculos/default.jpg" : VehiculoSeleccionado.ImagenUrl)"
+                                 onerror="this.src='/vehiculos/default.jpg'"
                                  class="img-fluid rounded shadow-sm"
                                  style="max-height:300px; object-fit:cover;" />
                         </div>
@@ -396,7 +398,7 @@
     public void CerrarModalVehiculos()
     {
         mostrarModalVehiculos = false;
-    } 
+    }
 
     public void AbrirModalCantidadPrecio(Vehiculo v)
     {
@@ -419,9 +421,9 @@
         mostrarModalDatosVehiculo = true;
     }
 
-    public void CerrarModalDatos() 
-    { 
-        mostrarModalDatosVehiculo = false; 
+    public void CerrarModalDatos()
+    {
+        mostrarModalDatosVehiculo = false;
     }
 
 
