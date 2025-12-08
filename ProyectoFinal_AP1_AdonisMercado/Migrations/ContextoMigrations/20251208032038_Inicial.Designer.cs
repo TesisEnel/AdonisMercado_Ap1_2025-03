@@ -12,8 +12,8 @@ using ProyectoFinal_AP1_AdonisMercado.DAL;
 namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20251130224255_AddImageUrlVehiculo")]
-    partial class AddImageUrlVehiculo
+    [Migration("20251208032038_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

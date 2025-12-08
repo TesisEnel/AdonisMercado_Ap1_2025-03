@@ -3,23 +3,23 @@
 @layout EmptyLayout
 
 @inject VehiculoService vehiculoService
+@inject CloudflareR2Service r2Service
 @inject NavigationManager nav
-@inject IWebHostEnvironment env
 @inject ToastService toastService
 @rendermode InteractiveServer
 
 <PageTitle>Editar Vehiculo</PageTitle>
 <div class="container-fluid py-4">
 	<div class="d-flex justify-content-between align-items-center mb-3">
-		<h2 class="fw-bold">Editar Vehículo</h2>
+		<h2 class="fw-bold">Editar Veh&iacute;culo</h2>
 
-		<a href="/vehiculos" class="btn btn-light">
-			<i class="fa-solid fa-arrow-left me-2"></i> Volver
+		<a href="/vehiculos" class="btn btn-light d-flex align-items-center gap-2">
+			<i class="fa-solid fa-arrow-left"></i> Volver
 		</a>
 	</div>
 
-	<div class="card shadow border-0">
-		<div class="card-body">
+	<div class="card shadow border-0 w-100" style="width: 100%;">
+		<div class="card-body p-4">
 
 			<EditForm Model="@Vehiculo" OnValidSubmit="GuardarCambios" FormName="EditVehiculo">
 				<DataAnnotationsValidator />
@@ -100,6 +100,10 @@
 					<InputFile class="form-control"
 							   OnChange="OnImagenSelected"
 							   accept="image/*" />
+					@if (!string.IsNullOrEmpty(ImagenActual))
+					{
+						<small class="text-muted">Imagen actual: @ImagenActual</small>
+					}
 				</div>
 
 				<div class="text-center mt-4">
@@ -142,30 +146,20 @@
 	{
 		await vehiculoService.Modificar(Vehiculo);
 
-		if (ImagenArchivo == null)
+		if (ImagenArchivo != null)
 		{
-			nav.NavigateTo("/vehiculos", forceLoad: true);
-			return;
+			if (!string.IsNullOrEmpty(ImagenActual))
+			{
+				await r2Service.EliminarArchivo(ImagenActual);
+			}
+
+			var urlImagen = await r2Service.SubirArchivo(ImagenArchivo, "vehiculos", Vehiculo.VehiculoId.ToString());
+
+			if (!string.IsNullOrEmpty(urlImagen))
+			{
+				await vehiculoService.ActualizarImagen(Vehiculo.VehiculoId, urlImagen);
+			}
 		}
-
-		string folder = Path.Combine(env.WebRootPath, "vehiculos");
-
-		if (!Directory.Exists(folder))
-		{
-			Directory.CreateDirectory(folder);
-		}
-
-		string extension = Path.GetExtension(ImagenArchivo.Name).ToLower();
-		string nombreArchivo = $"{Vehiculo.VehiculoId}{extension}";
-		string path = Path.Combine(folder, nombreArchivo);
-
-		await using (var stream = File.Create(path))
-		{
-			await ImagenArchivo.OpenReadStream().CopyToAsync(stream);
-		}
-
-		string ruta = $"/vehiculos/{nombreArchivo}";
-		await vehiculoService.ActualizarImagen(Vehiculo.VehiculoId, ruta);
 
 		toastService.ShowSuccess("Vehiculo modificado exitosamente!");
 		nav.NavigateTo("/vehiculos", forceLoad: true);

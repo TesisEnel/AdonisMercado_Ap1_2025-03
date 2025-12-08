@@ -3,162 +3,153 @@
 @layout EmptyLayout
 
 @inject VehiculoService vehiculoService
+@inject CloudflareR2Service r2Service
 @inject NavigationManager nav
-@inject IWebHostEnvironment env
 @inject ToastService toastService
 @rendermode InteractiveServer
 
+<PageTitle>Crear Vehículo</PageTitle>
+
 <div class="container-fluid py-4">
-	<div class="d-flex justify-content-between align-items-center mb-3">
-		<h2 class="fw-bold">Crear Vehículo</h2>
 
-		<a href="/vehiculos" class="btn btn-light">
-			<i class="fa-solid fa-arrow-left me-2"></i> Volver
-		</a>
-	</div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold">Crear Veh&iacute;culo</h2>
 
-	<div class="card shadow border-0">
-		<div class="card-body">
+        <a href="/vehiculos" class="btn btn-light d-flex align-items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+    </div>
 
-			<EditForm Model="@Vehiculo" OnValidSubmit="Guardar" FormName="CreateVehiculo">
-				<DataAnnotationsValidator />
-				<ValidationSummary />
+    <div class="card shadow border-0 w-100" style="width: 100%;">
+        <div class="card-body p-4">
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Vehiculo ID</label>
-					<input type="number" class="form-control" @bind="Vehiculo.VehiculoId" readonly/>
-				</div>
+            <EditForm Model="@Vehiculo" OnValidSubmit="Guardar" FormName="CreateVehiculo">
+                <DataAnnotationsValidator />
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Marca</label>
-					<input type="text" class="form-control" @bind="Vehiculo.MarcaVehiculo" />
-				</div>
+                <div class="d-flex flex-column">
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Modelo</label>
-					<input type="text" class="form-control" @bind="Vehiculo.ModeloVehiculo" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Vehículo ID</label>
+                        <input type="number" class="form-control" @bind="Vehiculo.VehiculoId" readonly />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Color</label>
-					<input type="text" class="form-control" @bind="Vehiculo.ColorVehiculo" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Marca</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.MarcaVehiculo" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Chasis</label>
-					<input type="text" class="form-control" @bind="Vehiculo.NumeroChasis" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Modelo</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.ModeloVehiculo" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Año Fabricaci&oacute;n</label>
-					<input type="number" class="form-control" @bind="Vehiculo.AnioFabricacion" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Color</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.ColorVehiculo" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Motor</label>
-					<input type="text" class="form-control" @bind="Vehiculo.Motor" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Chasis</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.NumeroChasis" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Transmisi&oacute;n</label>
-					<input type="text" class="form-control" @bind="Vehiculo.Transmision" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Año Fabricación</label>
+                        <input type="number" class="form-control" @bind="Vehiculo.AnioFabricacion" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Tracci&oacute;n</label>
-					<input type="text" class="form-control" @bind="Vehiculo.Traccion" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Motor</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.Motor" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Numero Puertas</label>
-					<input type="number" class="form-control" @bind="Vehiculo.NumeroPuertas" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Transmisión</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.Transmision" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Kilometraje</label>
-					<input type="number" class="form-control" @bind="Vehiculo.Kilometraje" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Tracción</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.Traccion" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Estado</label>
-					<input type="text" class="form-control" @bind="Vehiculo.EstadoVehiculo" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Número Puertas</label>
+                        <input type="number" class="form-control" @bind="Vehiculo.NumeroPuertas" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Tipo Combustible</label>
-					<input type="text" class="form-control" @bind="Vehiculo.TipoCombustible" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Kilometraje</label>
+                        <input type="number" class="form-control" @bind="Vehiculo.Kilometraje" />
+                    </div>
 
-				<div class="mb-2">
-					<label class="form-label fw-bold">Precio</label>
-					<input type="number" class="form-control" @bind="Vehiculo.Precio" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Estado</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.EstadoVehiculo" />
+                    </div>
 
-				<div class="col-md-12">
-					<label class="form-label fw-bold">Imagen del Vehículo</label>
-					<InputFile class="form-control"
-							   OnChange="OnImagenSelected"
-							   accept="image/*" />
-				</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Tipo Combustible</label>
+                        <input type="text" class="form-control" @bind="Vehiculo.TipoCombustible" />
+                    </div>
 
-				<div class="text-center mt-4">
-					<button class="btn btn-danger px-4">
-						<i class="fa-solid fa-floppy-disk me-2"></i> Guardar
-					</button>
-				</div>
-			</EditForm>
-		</div>
-	</div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Precio</label>
+                        <input type="number" class="form-control" @bind="Vehiculo.Precio" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Imagen del Vehículo</label>
+                        <InputFile class="form-control"
+                                   OnChange="OnImagenSelected"
+                                   accept="image/*" />
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="btn btn-danger px-4">
+                        <i class="fa-solid fa-floppy-disk me-2"></i> Guardar
+                    </button>
+                </div>
+
+            </EditForm>
+
+        </div>
+    </div>
 </div>
+
 @code {
-	public Vehiculo Vehiculo { get; set; } = new();
-	private IBrowserFile? ImagenArchivo;
-	private string? PreviewImagen;
+    public Vehiculo Vehiculo { get; set; } = new();
+    private IBrowserFile? ImagenArchivo;
 
-	private async Task OnImagenSelected(InputFileChangeEventArgs e)
-	{
-		ImagenArchivo = e.File;
-	}
+    private async Task OnImagenSelected(InputFileChangeEventArgs e)
+    {
+        ImagenArchivo = e.File;
+    }
 
-	private async Task Guardar()
-	{
-		Vehiculo.isActive = true;
-		var nuevoId = await vehiculoService.InsertarConId(Vehiculo);
+    private async Task Guardar()
+    {
+        Vehiculo.isActive = true;
+        var nuevoId = await vehiculoService.InsertarConId(Vehiculo);
 
-		if (nuevoId <= 0)
-		{
-			toastService.ShowError("Error al crear el vehiculo.");
-			return;
-		}
+        if (nuevoId <= 0)
+        {
+            toastService.ShowError("Error al crear el vehículo.");
+            return;
+        }
 
-		if (ImagenArchivo == null)
-		{
-			nav.NavigateTo("/vehiculos", forceLoad: true);
-			return;
-		}
+        if (ImagenArchivo != null)
+        {
+            var urlImagen = await r2Service.SubirArchivo(ImagenArchivo, "vehiculos", nuevoId.ToString());
 
-		string folder = Path.Combine(env.WebRootPath, "vehiculos");
+            if (!string.IsNullOrEmpty(urlImagen))
+            {
+                await vehiculoService.ActualizarImagen(nuevoId, urlImagen);
+            }
+        }
 
-		if (!Directory.Exists(folder))
-		{
-			Directory.CreateDirectory(folder);
-		}
-
-		string extension = Path.GetExtension(ImagenArchivo.Name).ToLower();
-
-		string nombreArchivo = $"{nuevoId}{extension}";
-		string path = Path.Combine(folder, nombreArchivo);
-
-		await using (var stream = File.Create(path))
-		{
-			await ImagenArchivo.OpenReadStream().CopyToAsync(stream);
-		}
-
-		string ruta = $"/vehiculos/{nombreArchivo}";
-		await vehiculoService.ActualizarImagen(nuevoId, ruta);
-
-		toastService.ShowSuccess("Vehiculo creado exitosamente!");
-		nav.NavigateTo("/vehiculos", forceLoad: true);
-	}
-
+        toastService.ShowSuccess("Vehículo creado exitosamente!");
+        nav.NavigateTo("/vehiculos", forceLoad: true);
+    }
 }

@@ -1,67 +1,65 @@
 ﻿@inherits LayoutComponentBase
 @inject AuthenticationStateProvider AuthStateProvider
-<Toasts class="p-3" AutoHide="true" StackLength="3" Placement="ToastsPlacement.TopRight" />
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+<div style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <Toasts class="p-3"
+            AutoHide="true"
+            Delay="4000"
+            Placement="ToastsPlacement.TopRight"
+            ShowCloseButton="true" />
+</div>
 
-    <a class="navbar-brand fw-bold d-flex align-items-center gap-2 text-black" href="/">
-        <i class="fa-solid fa-car-side text-danger"></i>
-        AutoFranklin
-    </a>
+<nav class="navbar navbar-expand-lg py-3 shadow-sm" style="background:#BD1717;">
+    <div class="container-fluid">
+        <button class="navbar-toggler text-white"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#topNavbar"
+                aria-controls="topNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topbarMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        <div class="collapse navbar-collapse justify-content-end" id="topNavbar">
 
-    <div class="collapse navbar-collapse" id="topbarMenu">
-        <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
 
-            @if (isAuthenticated)
-            {
-                <li class="nav-item dropdown">
+                @if (isAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a href="/Account/Manage"
+                           class="btn btn-outline-light d-flex align-items-center gap-2 w-100" style="background:#BD1717; color:white; border-color:#BD1717;">
+                            <i class="fa-solid fa-user"></i> @userName
+                        </a>
+                    </li>
 
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                        <i class="fa-solid fa-user"></i> @userName
-                    </a>
+                    <li class="nav-item">
+                        <a href="/DoLogout"
+                           class="btn btn-light d-flex align-items-center gap-2 w-100" style="background:#BD1717;color:white;">
+                            <i class="fa-solid fa-right-from-bracket"></i> Salir
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a href="/Account/Login"
+                           class="btn btn-light w-100" style="background:#BD1717;color:white;border-color:#BD1717;">
+                            Iniciar sesión
+                        </a>
+                    </li>
+                }
 
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="/Account/Manage">
-                                <i class="fa-solid fa-gear me-2"></i> Perfil
-                            </a>
-                        </li>
+            </ul>
 
-                        <li><hr class="dropdown-divider" /></li>
+        </div>
 
-                        <li>
-                            <form method="post" action="/Account/Logout" id="logoutForm">
-                                <AntiforgeryToken />
-                                <input type="hidden" name="returnUrl" value="/" />
-                            </form>
-
-                            <a class="dropdown-item text-danger" href="/DoLogout">
-                                <i class="fa-solid fa-right-from-bracket me-2"></i> Cerrar sesión
-                            </a>
-                        </li>
-                    </ul>
-
-                </li>
-            }
-            else
-            {
-                <li class="nav-item">
-                    <a class="nav-link" href="/Account/Login">
-                        <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
-                    </a>
-                </li>
-            }
-
-        </ul>
     </div>
-
 </nav>
 
-<!-- CONTENIDO DE LA PÁGINA -->
+
+
 <div class="container py-4">
     @Body
 </div>
