@@ -9,21 +9,28 @@
             ShowCloseButton="true" />
 </div>
 
-<nav class="navbar navbar-expand-lg py-3" style="background: #BD1717; color:white;">
+<nav class="navbar navbar-expand-lg py-3" style="background:#BD1717; color:white;">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="/">
+        <a class="navbar-brand d-flex align-items-center" href="/admin">
             <img src="images/autofranklin-layout-removebg-preview.png"
                  alt="AutoFranklin Logo"
                  style="height:45px; width:auto;" class="me-4" />
         </a>
 
-        <button class="navbar-toggler" type="button" style="border:none;">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler text-white"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#adminNavbar"
+                aria-controls="adminNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                style="border:none;">
+            <span class="navbar-toggler-icon" style="filter:invert(1);"></span>
         </button>
 
-        <div class="navbar-collapse show">
+        <div class="collapse navbar-collapse" id="adminNavbar">
 
-            <ul class="navbar-nav me-auto gap-2">
+            <ul class="navbar-nav me-auto gap-2 mt-3 mt-lg-0">
 
                 <li class="nav-item">
                     <NavLink href="/admin" class="nav-link text-white fw-semibold">Inicio</NavLink>
@@ -34,26 +41,31 @@
                 </li>
 
                 <li class="nav-item">
-                    <NavLink href="/vehiculos" class="nav-link text-white fw-semibold">Veh&iacute;culos</NavLink>
+                    <NavLink href="/vehiculos" class="nav-link text-white fw-semibold">Vehículos</NavLink>
                 </li>
 
             </ul>
 
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
 
                 @if (isAuthenticated)
                 {
-                    <a href="/Account/Manage" class="btn btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:#BD1717; color:white;">
+                    <a href="/Account/Manage"
+                       class="btn btn-outline-light d-flex align-items-center gap-2" style="background:#BD1717;color:white;border-color:#BD1717;">
                         <i class="fa-solid fa-user"></i> @userName
                     </a>
 
-                    <a href="/DoLogout" class="btn btn-danger d-flex align-items-center gap-2" style="background: #BD1717; border-color:white;">
+                    <a href="/DoLogout"
+                       class="btn btn-light d-flex align-items-center gap-2" style="background:#BD1717;color:white;border-color:#BD1717;">
                         <i class="fa-solid fa-right-from-bracket"></i> Salir
                     </a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="btn btn-danger" style="background: #BD1717; border-color: #BD1717; color:white;">Iniciar sesión</a>
+                    <a href="/Account/Login"
+                       class="btn btn-light" style="background:#BD1717;color:white;border-color:#BD1717;">
+                        Iniciar sesión
+                    </a>
                 }
 
             </div>
