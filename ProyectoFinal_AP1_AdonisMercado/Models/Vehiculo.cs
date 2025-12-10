@@ -24,8 +24,10 @@ public class Vehiculo
     [RegularExpression(@"^[A-Za-z0-9]+$", ErrorMessage = "Número de chasis inválido. Solo se permite usar letras y números.")]
     public string NumeroChasis { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "El año de fabricación es obligatorio.")]
-    public int AnioFabricacion { get; set; }
+    [Required(ErrorMessage = "El año de fabricacion es obligatorio.")]
+    [Range(0, int.MaxValue, ErrorMessage = "El año de fabricacion debe ser mayor que 0.")]
+    public int? AnioFabricacion { get; set; }
+
     [Required(ErrorMessage = "El motor es obligatorio.")]
     public string Motor { get; set; } = string.Empty;
 
@@ -36,10 +38,12 @@ public class Vehiculo
     public string Traccion { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El numero de puertas es obligatorio.")]
-    public int NumeroPuertas { get; set; }
+    [Range(1, 10, ErrorMessage = "El numero de puertas debe se un numero entre 1 y 10.")]
+    public int? NumeroPuertas { get; set; }
 
-    [Required(ErrorMessage = "El kilometraje es obligatorio")]
-    public int Kilometraje { get; set; }
+    [Required(ErrorMessage = "El kilometraje es obligatorio.")]
+    [Range(0, int.MaxValue, ErrorMessage = "El kilometraje es obligatorio")]
+    public int? Kilometraje { get; set; }
 
     [Required(ErrorMessage = "El estado es obligatorio.")]
     public string EstadoVehiculo { get; set; } = string.Empty;
