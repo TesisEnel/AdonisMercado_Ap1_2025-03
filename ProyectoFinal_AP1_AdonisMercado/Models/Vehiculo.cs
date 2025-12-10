@@ -57,6 +57,8 @@ public class Vehiculo
     public bool isActive { get; set; } = true;
     public string? ImagenUrl { get; set; }
 
+    public int StockVehiculo { get; set; }
+
     [InverseProperty("Vehiculo")]
     public ICollection<PedidoDetalle> PedidoDetalles { get; set; } = new List<PedidoDetalle>();
 }

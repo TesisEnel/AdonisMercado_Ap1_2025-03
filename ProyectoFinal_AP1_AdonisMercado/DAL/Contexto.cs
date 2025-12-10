@@ -33,7 +33,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "1.8L",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 2
             },
             new Vehiculo
             {
@@ -50,7 +51,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "2.0L",
                 Kilometraje = 45000,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 3
             },
             new Vehiculo
             {
@@ -67,7 +69,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "2.0L TDCi",
                 Kilometraje = 60000,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 1
             },
             new Vehiculo
             {
@@ -84,7 +87,8 @@ public class Contexto : DbContext
                 Traccion = "4x4",
                 Motor = "5.3L V8",
                 Kilometraje = 0,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 2
             },
             new Vehiculo
             {
@@ -101,7 +105,8 @@ public class Contexto : DbContext
                 Traccion = "4x4",
                 Motor = "2.8L Turbo Diesel",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 1
             },
             new Vehiculo
             {
@@ -118,7 +123,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "2.0L",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 3
             },
             new Vehiculo
             {
@@ -135,7 +141,8 @@ public class Contexto : DbContext
                 Traccion = "AWD",
                 Motor = "1.5L Turbo",
                 Kilometraje = 0,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 6
             },
             new Vehiculo
             {
@@ -152,7 +159,8 @@ public class Contexto : DbContext
                 Traccion = "AWD",
                 Motor = "2.5L SkyActiv",
                 Kilometraje = 0,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 1
             },
             new Vehiculo
             {
@@ -169,7 +177,8 @@ public class Contexto : DbContext
                 Traccion = "AWD",
                 Motor = "2.5L Hybrid",
                 Kilometraje = 20000,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 2
             },
             new Vehiculo
             {
@@ -186,7 +195,8 @@ public class Contexto : DbContext
                 Traccion = "4x4",
                 Motor = "3.0L Duramax",
                 Kilometraje = 35000,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 0
             },
             new Vehiculo
             {
@@ -203,7 +213,8 @@ public class Contexto : DbContext
                 Traccion = "AWD",
                 Motor = "2.5L",
                 Kilometraje = 0,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 5
             },
             new Vehiculo
             {
@@ -220,7 +231,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "1.6L Turbo",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 1
             },
             new Vehiculo
             {
@@ -237,7 +249,8 @@ public class Contexto : DbContext
                 Traccion = "AWD",
                 Motor = "3.5L V6",
                 Kilometraje = 70000,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 0
             },
             new Vehiculo
             {
@@ -254,7 +267,8 @@ public class Contexto : DbContext
                 Traccion = "4x4",
                 Motor = "3.5L V6",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 1
             },
             new Vehiculo
             {
@@ -271,7 +285,8 @@ public class Contexto : DbContext
                 Traccion = "AWD",
                 Motor = "3.5L V6",
                 Kilometraje = 0,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 0
             },
             new Vehiculo
             {
@@ -288,7 +303,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "1.5L Turbo",
                 Kilometraje = 15000,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 0
             },
             new Vehiculo
             {
@@ -305,7 +321,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "2.5L",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 6
             },
             new Vehiculo
             {
@@ -322,7 +339,8 @@ public class Contexto : DbContext
                 Traccion = "FWD",
                 Motor = "1.5L",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 0
             },
             new Vehiculo
             {
@@ -339,7 +357,8 @@ public class Contexto : DbContext
                 Traccion = "AWD 4MATIC",
                 Motor = "4.0L V8 Biturbo",
                 Kilometraje = 0,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 2
             },
             new Vehiculo
             {
@@ -356,7 +375,8 @@ public class Contexto : DbContext
                 Traccion = "4x4",
                 Motor = "2.5L Turbo Diesel",
                 Kilometraje = 0,
-                NumeroPuertas = 4
+                NumeroPuertas = 4,
+                StockVehiculo = 2
             },
             new Vehiculo
             {
@@ -373,7 +393,8 @@ public class Contexto : DbContext
                 Traccion = "4x4",
                 Motor = "4.0L V6",
                 Kilometraje = 10000,
-                NumeroPuertas = 5
+                NumeroPuertas = 5,
+                StockVehiculo = 2
             }
         );
     }
