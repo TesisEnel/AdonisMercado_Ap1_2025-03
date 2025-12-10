@@ -8,15 +8,19 @@ public class Vehiculo
     [Key]
     public int VehiculoId { get; set; }
 
+    [Required(ErrorMessage = "La marca es obligatoria.")]
     [RegularExpression(@"^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$", ErrorMessage = "Marca incorrecta. Solo se permite usar letras.")]
     public string MarcaVehiculo { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "El modelo es obligatorio.")]
     [RegularExpression(@"^[a-zA-ZÁÉÍÓÚáéíóúñÑ0-9 ]+$", ErrorMessage = "Modelo incorrecto. Solo se permite usar letras y números.")]
     public string ModeloVehiculo { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "El color es obligatorio.")]
     [RegularExpression(@"^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$", ErrorMessage = "Color incorrecto. Solo se permite usar letras.")]
     public string ColorVehiculo { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "El número de chasis es obligatorio.")]
     [RegularExpression(@"^[A-Za-z0-9]+$", ErrorMessage = "Número de chasis inválido. Solo se permite usar letras y números.")]
     public string NumeroChasis { get; set; } = string.Empty;
 

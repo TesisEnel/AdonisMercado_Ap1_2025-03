@@ -11,6 +11,7 @@ public class Pedido
     [Required(ErrorMessage = "La fecha de pedido es obligatoria.")]
     public DateTime FechaPedido { get; set; }
 
+    [Required(ErrorMessage = "El nombre es obligatorio.")]
     [RegularExpression(@"^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$", ErrorMessage = "Solo se permiten letras y espacios.")]
     public string NombrePedido { get; set; } = string.Empty;
 

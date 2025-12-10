@@ -12,8 +12,8 @@ using ProyectoFinal_AP1_AdonisMercado.DAL;
 namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20251208032038_Inicial")]
-    partial class Inicial
+    [Migration("20251209005149_AddRequiered")]
+    partial class AddRequiered
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
