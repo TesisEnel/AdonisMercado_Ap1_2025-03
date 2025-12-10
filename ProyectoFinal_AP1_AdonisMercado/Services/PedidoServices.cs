@@ -35,6 +35,38 @@ public class PedidoServices(IDbContextFactory<Contexto> DbFactory)
     private async Task<bool> Modificar(Pedido pedido)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
+
+        var pedidoAnterior = await contexto.Pedidos
+            .Include(p => p.PedidoDetalles)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.PedidoId == pedido.PedidoId);
+
+        if (pedidoAnterior == null)
+        {
+            return false;
+        }
+
+        foreach (var detalleAnterior in pedidoAnterior.PedidoDetalles)
+        {
+            var vehiculo = await contexto.Vehiculos.FindAsync(detalleAnterior.VehiculoId);
+            if (vehiculo != null)
+            {
+                vehiculo.StockVehiculo -= detalleAnterior.Cantidad;
+            }
+        }
+
+        var detallesAEliminar = contexto.PedidoDetalles
+            .Where(d => d.PedidoId == pedido.PedidoId);
+        contexto.PedidoDetalles.RemoveRange(detallesAEliminar);
+
+        foreach (var detalleNuevo in pedido.PedidoDetalles)
+        {
+            var vehiculo = await contexto.Vehiculos.FindAsync(detalleNuevo.VehiculoId);
+            if (vehiculo != null)
+            {
+                vehiculo.StockVehiculo += detalleNuevo.Cantidad;
+            }
+        }
         contexto.Pedidos.Update(pedido);
         return await contexto.SaveChangesAsync() > 0;
     }
