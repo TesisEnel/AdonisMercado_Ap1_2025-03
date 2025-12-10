@@ -150,6 +150,14 @@ public class PedidoServices(IDbContextFactory<Contexto> DbFactory)
             return false;
         }
 
+        foreach (var detalle in pedido.PedidoDetalles)
+        {
+            var vehiculo = await contexto.Vehiculos.FindAsync(detalle.VehiculoId);
+            if (vehiculo != null)
+            {
+                vehiculo.StockVehiculo += detalle.Cantidad;
+            }
+        }
         pedido.isActive = true;
         return await contexto.SaveChangesAsync() > 0;
     }
