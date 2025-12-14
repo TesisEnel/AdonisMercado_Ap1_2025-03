@@ -8,9 +8,9 @@ namespace ProyectoFinal_AP1_AdonisMercado.Services;
 public class DocumentoServices
 {
     private readonly IDbContextFactory<Contexto> _dbFactory;
-    private readonly CloudflareR2Service _r2Service;
+    private readonly ICloudflareR2Service _r2Service;
 
-    public DocumentoServices(IDbContextFactory<Contexto> dbFactory, CloudflareR2Service r2Service)
+    public DocumentoServices(IDbContextFactory<Contexto> dbFactory, ICloudflareR2Service r2Service)
     {
         _dbFactory = dbFactory;
         _r2Service = r2Service;
