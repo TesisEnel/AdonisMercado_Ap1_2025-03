@@ -7,9 +7,16 @@ namespace ProyectoFinal_AP1_AdonisMercado.Services;
 
 public class CloudflareR2Service
 {
-    private readonly AmazonS3Client _s3Client;
+    private readonly IAmazonS3 _s3Client;
     private readonly string _bucketName;
     private readonly string _publicUrl;
+
+    public CloudflareR2Service(IAmazonS3 s3client, IConfiguration configuration)
+    {
+        _s3Client = s3client;
+        _bucketName = configuration["CloudflareR2:BucketName"]!;
+        _publicUrl = configuration["CloudflareR2:PublicUrl"]!;
+    }
 
     public CloudflareR2Service(IConfiguration configuration)
     {
