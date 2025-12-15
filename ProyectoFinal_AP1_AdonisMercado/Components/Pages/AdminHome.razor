@@ -42,6 +42,13 @@
             </div>
         </div>
 
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <i class="fa-solid fa-line-chart text-danger" style="font-size:45px;"></i>
+                <h6 class="mt-2 text-uppercase text-muted fw-bold">Stock Total</h6>
+                <h3 class="fw-bold">@StockTotal</h3>
+            </div>
+        </div>
     </div>
 
     <div class="row justify-content-center g-4">
@@ -73,6 +80,7 @@
                         <thead class="table-light fw-bold">
                             <tr>
                                 <th>ID</th>
+                                <th>Stock</th>
                                 <th>Marca</th>
                                 <th>Modelo</th>
                                 <th>Año</th>
@@ -85,6 +93,7 @@
                             {
                                 <tr>
                                     <td>@v.VehiculoId</td>
+                                    <td>@v.StockVehiculo</td>
                                     <td>@v.MarcaVehiculo</td>
                                     <td>@v.ModeloVehiculo</td>
                                     <td>@v.AnioFabricacion</td>
@@ -114,6 +123,7 @@
     public int TotalVehiculos { get; set; }
     public int VehiculosActivos { get; set; }
     public int VehiculosInactivos { get; set; }
+    public int StockTotal { get; set; }
 
     public List<Vehiculo> UltimosVehiculos { get; set; } = new();
 
@@ -124,6 +134,7 @@
         TotalVehiculos = vehiculos.Count;
         VehiculosActivos = vehiculos.Count(v => v.isActive);
         VehiculosInactivos = vehiculos.Count(v => !v.isActive);
+        StockTotal = vehiculos.Sum(v => v.StockVehiculo);
 
         UltimosVehiculos = vehiculos
             .OrderByDescending(v => v.VehiculoId)
