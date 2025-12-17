@@ -8,12 +8,15 @@ public class Distribuidor
     [Key]
     public int DistribuidorId { get; set; }
 
+    [Required(ErrorMessage = "El nombre es obligatorio.")]
     [RegularExpression(@"^[a-zA-ZÁÉÍÓÚáéíóúñÑ ]+$", ErrorMessage = "Solo se permiten letras y espacios.")]
     public string Nombre { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "El correo es obligatorio.")]
     [EmailAddress(ErrorMessage = "El correo electrónico no es válido.")]
     public string Email { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "El telefono es obligatorio.")]
     [RegularExpression(@"^[0-9\- ]+$", ErrorMessage = "El teléfono solo permite números, espacios y guiones.")]
     public string Telefono { get; set; } = string.Empty;
 

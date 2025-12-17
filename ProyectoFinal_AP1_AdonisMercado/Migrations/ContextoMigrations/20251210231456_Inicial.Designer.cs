@@ -12,7 +12,7 @@ using ProyectoFinal_AP1_AdonisMercado.DAL;
 namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20251208032038_Inicial")]
+    [Migration("20251210231456_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -205,6 +205,9 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("StockVehiculo")
+                        .HasColumnType("int");
+
                     b.Property<string>("TipoCombustible")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -238,6 +241,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "JTDBR32E720045671",
                             NumeroPuertas = 4,
                             Precio = 20000.00m,
+                            StockVehiculo = 2,
                             TipoCombustible = "Gasolina",
                             Traccion = "FWD",
                             Transmision = "Automática",
@@ -256,6 +260,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "2HGFA16598H345612",
                             NumeroPuertas = 4,
                             Precio = 18000.00m,
+                            StockVehiculo = 3,
                             TipoCombustible = "Gasolina",
                             Traccion = "FWD",
                             Transmision = "Automática",
@@ -274,6 +279,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "1FAHP3F26CL123589",
                             NumeroPuertas = 4,
                             Precio = 15000.00m,
+                            StockVehiculo = 1,
                             TipoCombustible = "Diésel",
                             Traccion = "FWD",
                             Transmision = "Manual",
@@ -292,6 +298,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "1GNSKCKC4FR367812",
                             NumeroPuertas = 5,
                             Precio = 115000.00m,
+                            StockVehiculo = 2,
                             TipoCombustible = "Gasolina",
                             Traccion = "4x4",
                             Transmision = "Automática",
@@ -310,6 +317,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "MR0HA3CD205123678",
                             NumeroPuertas = 4,
                             Precio = 52000.00m,
+                            StockVehiculo = 1,
                             TipoCombustible = "Diesel",
                             Traccion = "4x4",
                             Transmision = "Automática",
@@ -328,6 +336,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "3N1AB8CV4PY245781",
                             NumeroPuertas = 4,
                             Precio = 22000.00m,
+                            StockVehiculo = 3,
                             TipoCombustible = "Gasolina",
                             Traccion = "FWD",
                             Transmision = "CVT",
@@ -346,6 +355,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "5J6RM4H77GL046821",
                             NumeroPuertas = 5,
                             Precio = 55000.00m,
+                            StockVehiculo = 6,
                             TipoCombustible = "Gasolina",
                             Traccion = "AWD",
                             Transmision = "Automática",
@@ -364,6 +374,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "JM3KFBDM4M0557812",
                             NumeroPuertas = 5,
                             Precio = 48000.00m,
+                            StockVehiculo = 1,
                             TipoCombustible = "Gasolina",
                             Traccion = "AWD",
                             Transmision = "Automática",
@@ -382,6 +393,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "JTMGB3FV2MD062345",
                             NumeroPuertas = 5,
                             Precio = 35000.00m,
+                            StockVehiculo = 2,
                             TipoCombustible = "Gasolina",
                             Traccion = "AWD",
                             Transmision = "Automática",
@@ -400,6 +412,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "1GCUYDED2MZ234567",
                             NumeroPuertas = 4,
                             Precio = 60000.00m,
+                            StockVehiculo = 0,
                             TipoCombustible = "Diesel",
                             Traccion = "4x4",
                             Transmision = "Automática",
@@ -418,6 +431,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "2T3J1RFV7RW345612",
                             NumeroPuertas = 5,
                             Precio = 80000m,
+                            StockVehiculo = 5,
                             TipoCombustible = "Gasolina",
                             Traccion = "AWD",
                             Transmision = "Automática",
@@ -436,6 +450,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "5XXG64J20MG152487",
                             NumeroPuertas = 4,
                             Precio = 59000m,
+                            StockVehiculo = 1,
                             TipoCombustible = "Gasolina",
                             Traccion = "FWD",
                             Transmision = "Automática",
@@ -454,6 +469,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "5FNYF6H56LB123789",
                             NumeroPuertas = 5,
                             Precio = 6000m,
+                            StockVehiculo = 0,
                             TipoCombustible = "Gasolina",
                             Traccion = "AWD",
                             Transmision = "Automática",
@@ -472,6 +488,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "3TMCZ5AN8PM234981",
                             NumeroPuertas = 4,
                             Precio = 120000m,
+                            StockVehiculo = 1,
                             TipoCombustible = "Gasolina",
                             Traccion = "4x4",
                             Transmision = "Automática",
@@ -490,6 +507,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "5TDKDRBH4PS145678",
                             NumeroPuertas = 5,
                             Precio = 110000m,
+                            StockVehiculo = 0,
                             TipoCombustible = "Gasolina",
                             Traccion = "AWD",
                             Transmision = "Automática",
@@ -508,6 +526,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "L6T743DF5RA012345",
                             NumeroPuertas = 5,
                             Precio = 38000m,
+                            StockVehiculo = 0,
                             TipoCombustible = "Gasolina",
                             Traccion = "FWD",
                             Transmision = "Automática",
@@ -526,6 +545,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "5NPEJ4J27MH045612",
                             NumeroPuertas = 4,
                             Precio = 40000m,
+                            StockVehiculo = 6,
                             TipoCombustible = "Gasolina",
                             Traccion = "FWD",
                             Transmision = "Automática",
@@ -544,6 +564,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "MZK123F47RN654321",
                             NumeroPuertas = 4,
                             Precio = 35000m,
+                            StockVehiculo = 0,
                             TipoCombustible = "Gasolina",
                             Traccion = "FWD",
                             Transmision = "Automática",
@@ -562,6 +583,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "4JGED7FB7MA123456",
                             NumeroPuertas = 5,
                             Precio = 165000.00m,
+                            StockVehiculo = 2,
                             TipoCombustible = "Gasolina",
                             Traccion = "AWD 4MATIC",
                             Transmision = "Automática AMG",
@@ -580,6 +602,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "1N6ED1EK9RN345678",
                             NumeroPuertas = 4,
                             Precio = 55000m,
+                            StockVehiculo = 2,
                             TipoCombustible = "Diesel",
                             Traccion = "4x4",
                             Transmision = "Automática",
@@ -598,6 +621,7 @@ namespace ProyectoFinal_AP1_AdonisMercado.Migrations.ContextoMigrations
                             NumeroChasis = "JTEBR3FJ3RK128945",
                             NumeroPuertas = 5,
                             Precio = 90000m,
+                            StockVehiculo = 2,
                             TipoCombustible = "Gasolina",
                             Traccion = "4x4",
                             Transmision = "Automática",

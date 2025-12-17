@@ -8,9 +8,9 @@ namespace ProyectoFinal_AP1_AdonisMercado.Services;
 public class DocumentoServices
 {
     private readonly IDbContextFactory<Contexto> _dbFactory;
-    private readonly CloudflareR2Service _r2Service;
+    private readonly ICloudflareR2Service _r2Service;
 
-    public DocumentoServices(IDbContextFactory<Contexto> dbFactory, CloudflareR2Service r2Service)
+    public DocumentoServices(IDbContextFactory<Contexto> dbFactory, ICloudflareR2Service r2Service)
     {
         _dbFactory = dbFactory;
         _r2Service = r2Service;
@@ -58,6 +58,20 @@ public class DocumentoServices
         await using var contexto = await _dbFactory.CreateDbContextAsync();
         contexto.Documentos.Add(documento);
         await contexto.SaveChangesAsync();
+
+        var totalDocs = await contexto.Documentos
+            .Where(d => d.PedidoId == pedidoId)
+            .CountAsync();
+        
+        if (totalDocs >= 2)
+        {
+            var pedido = await contexto.Pedidos.FindAsync(pedidoId);
+            if (pedido != null)
+            {
+                pedido.Estado = "Completado";
+                await contexto.SaveChangesAsync();
+            }
+        }
 
         return true;
     }

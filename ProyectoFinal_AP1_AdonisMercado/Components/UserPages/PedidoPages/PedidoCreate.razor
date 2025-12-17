@@ -45,11 +45,13 @@
 					<div class="mb-3 w-100">
 						<label class="form-label fw-bold">Pedido ID</label>
 						<input type="number" class="form-control" @bind="Pedido.PedidoId" readonly />
+						<ValidationMessage For="() => Pedido.PedidoId" />
 					</div>
 
 					<div class="mb-3 w-100">
 						<label class="form-label fw-bold">Fecha</label>
 						<input type="date" class="form-control" @bind="Pedido.FechaPedido" />
+						<ValidationMessage For="() => Pedido.FechaPedido" />
 					</div>
 
 					<div class="mb-3 w-100">
@@ -64,8 +66,8 @@
 							<option value="No Enviado" selected>No Enviado</option>
 							<option value="Enviado" disabled>Enviado</option>
 						</select>
+						<ValidationMessage For="() => Pedido.Estado" />
 					</div>
-
 				</div>
 
 
@@ -143,7 +145,7 @@
 						<div class="col-md-4 mb-3">
 							<label class="form-label fw-bold">Cantidad total</label>
 							<input class="form-control" readonly
-								   value="@Pedido.PedidoDetalles.Count()" />
+								   value="@Pedido.PedidoDetalles.Sum(d => d.Cantidad)" />
 						</div>
 
 						<div class="col-md-4 mb-3">
@@ -208,7 +210,7 @@
 											@v.Transmision • @v.Traccion
 										</p>
 										<p class="text-muted mb-2">
-											Puertas: @v.NumeroPuertas
+											Puertas: @v.NumeroPuertas - Stock: @v.StockVehiculo
 										</p>
 
 										<p class="text-danger fw-bold">USD$@v.Precio</p>
@@ -280,10 +282,18 @@
 						<input type="number" class="form-control" @bind="Precio" readonly />
 					</div>
 
+					<p class="text-muted text-center m-2">
+						Nota: El Stock del vehiculo pasar&aacute; de: @VehiculoSeleccionado.StockVehiculo a @(VehiculoSeleccionado.StockVehiculo + Cantidad).
+					</p>
+
+					@if (!string.IsNullOrWhiteSpace(errorMensaje))
+					{
+						<div class="alert alert-danger">@errorMensaje</div>
+					}
 				</div>
 
 				<div class="modal-footer">
-					<button class="btn btn-secondary" @onclick="CerrarModalCantidadPrecio">Cerrar</button>
+					<button class="btn btn-secondary" @onclick="CerrarModalCantidadPrecio">Volver</button>
 					<button class="btn btn-danger" @onclick="AgregarDetalle">
 						<i class="fa-solid fa-check"></i> Agregar
 					</button>
@@ -320,7 +330,7 @@
 								@VehiculoSeleccionado.MarcaVehiculo @VehiculoSeleccionado.ModeloVehiculo
 							</h4>
 
-							<p class="text-muted">Año: @VehiculoSeleccionado.AnioFabricacion</p>
+							<p class="text-muted">Año: @VehiculoSeleccionado.AnioFabricacion - Stock: @VehiculoSeleccionado.StockVehiculo</p>
 
 							<p><strong>Color:</strong> @VehiculoSeleccionado.ColorVehiculo</p>
 							<p><strong>Motor:</strong> @VehiculoSeleccionado.Motor</p>
@@ -380,6 +390,7 @@
 
 		if (ok)
 		{
+			errorMensaje = null;
 			toastService.ShowSuccess("Pedido creado exitosamente!");
 			nav.NavigateTo("/pedidos");
 		}
@@ -392,6 +403,12 @@
 
 	private async Task AgregarDetalle()
 	{
+		if (Cantidad < 0)
+		{
+			errorMensaje = "La cantidad debe ser mayor a cero.";
+			return;
+		}
+
 		var detalle = new PedidoDetalle
 		{
 			VehiculoId = VehiculoSeleccionado.VehiculoId,
@@ -431,6 +448,7 @@
 	public void CerrarModalCantidadPrecio()
 	{
 		mostrarModalCantidadPrecio = false;
+		mostrarModalVehiculos = true;
 	}
 
 	public void AbrirModalDatos(Vehiculo v)
